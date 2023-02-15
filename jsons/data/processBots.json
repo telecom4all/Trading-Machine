@@ -1,0 +1,23 @@
+{
+    "1620172": {
+        "pid": 1620172,
+        "dateStartString": "15/02/2023 16:04:33",
+        "botName": "Bot_futures_Multi",
+        "production": true,
+        "stratSelected": "BOLLINGER",
+        "exchangeSelected": "BITGET",
+        "isMysql": true,
+        "telegram_on": true,
+        "stableCoin": "USDT",
+        "timeframeBot": "1h",
+        "leverage": "1",
+        "nbOfCandles": "1000",
+        "is_tp": true,
+        "is_sl": true,
+        "maxOpenPosition": "5",
+        "typeTrade": "both",
+        "totalInvestment": "20",
+        "soldeFile": "historiques-soldes-1.json",
+        "date": "2023-02-15T16:04:33.571Z"
+    }
+}

@@ -1,0 +1,83 @@
+{
+  "exchanges": [
+    {
+      "name": "BITGET"
+    },
+    {
+      "name": "BINANCE"
+    }
+  ],
+  "strategies": [
+    {
+      "name": "BOLLINGER",
+      "bol_window_bollinger": "100",
+      "bol_std_bollinger": "2.25",
+      "min_bol_spread_bollinger": "0",
+      "long_ma_window_bollinger": "500",
+      "pair_list": "DOGE,LUNC"
+    },
+    {
+      "name": "RANGE_1",
+      "bol_window_range_1": "100",
+      "bol_std_range_1": "2.25",
+      "min_bol_spread_range_1": "0",
+      "kama_windows_range_1": "10",
+      "kama_pow1_range_1": "2",
+      "kama_pow2_range_1": "30",
+      "rsi_windows_range_1": "14",
+      "pair_list": "BTC,ETH,BNB,LTC,DOGE,XRP,SOL,AVAX,MATIC,TRX,FTM,AAVE,SUSHI,BCH,ETC,LINK,EOS,UNI,COMP,LUNC,1INCH"
+    }
+  ],
+  "parametres_generaux": {
+    "botname": "Bot_futures_Multi",
+    "botversion": "1",
+    "port_web": "4000",
+    "password_web": "123456",
+    "delai_log": "5",
+    "delai_interface": "20",
+    "production": true,
+    "debug": true,
+    "debug_detail": true,
+    "strat_active": "BOLLINGER",
+    "exchange_active": "BITGET",
+    "delay_coin": "1",
+    "mysql": true
+  },
+  "retour_telegram": {
+    "telegram_on": true,
+    "alwaysNotifTelegram": true,
+    "notifTelegramOnChangeOnly": true,
+    "notifBilanDePerformance": true,
+    "notifBilanEvolutionContinue": true
+  },
+  "parametre_strategie_generaux": {
+    "stableCoin": "USDT",
+    "timeframe": "1m",
+    "nbOfCandles": "1000",
+    "leverage": "1",
+    "is_tp": true,
+    "nb_tp": "1",
+    "tp_1": "0.05",
+    "tp_2": "0.1",
+    "is_sl": true,
+    "sl": "0.5",
+    "maxOpenPosition": "5",
+    "type": "both"
+  },
+  "historique": {
+    "totalInvestment": "20",
+    "soldeFile": "historiques-soldes-1.json"
+  },
+  "timeFrames" : [
+    { "name": "1 minute", "abbreviation": "1m", "interval_formule": "60 * 1000", "interval": 60000, "cronSyntax": "* * * * *" },
+    { "name": "5 minutes", "abbreviation": "5m", "interval_formule": "5 * 60 * 1000", "interval": 300000, "cronSyntax": "*/5 * * * *" },
+    { "name": "15 minutes", "abbreviation": "15m", "interval_formule": "15 * 60 * 1000", "interval": 900000, "cronSyntax": "*/15 * * * *" },
+    { "name": "30 minutes", "abbreviation": "30m", "interval_formule": "30 * 60 * 1000", "interval": 1800000, "cronSyntax": "*/30 * * * *" },
+    { "name": "1 hour", "abbreviation": "1h", "interval_formule": "60 * 60 * 1000", "interval": 3600000, "cronSyntax": "0 * * * *" },
+    { "name": "4 hours", "abbreviation": "4h", "interval_formule": "4 * 60 * 60 * 1000", "interval": 14400000, "cronSyntax": "0 */4 * * *" },
+    { "name": "1 day", "abbreviation": "1d", "interval_formule": "24 * 60 * 60 * 1000", "interval": 86400000, "cronSyntax": "0 0 * * *" },
+    { "name": "1 week", "abbreviation": "1w", "interval_formule": "7 * 24 * 60 * 60 * 1000", "interval": 604800000, "cronSyntax": "0 0 * * 0" },
+    { "name": "1 month", "abbreviation": "1M", "interval_formule": "30 * 24 * 60 * 60 * 1000", "interval": 2592000000, "cronSyntax": "0 0 1 * *" }
+  ]
+
+}

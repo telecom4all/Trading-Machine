@@ -1,0 +1,399 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #333333;
+    
+}
+    
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    border: 0.125rem solid white;
+    padding: 0.625rem 1.25rem;
+    border-radius: 1.875rem;
+}
+
+nav a:hover {
+    background-color: white;
+    color: #333333;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: white;
+    font-size: 2.25rem;
+}
+
+#main {
+    background-color: #1c1c1e;
+    height: calc(100vh - 6.25rem);
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    margin: 0 auto;
+    color: white;
+}
+
+#config-form {
+    height: calc(100vh - 6.25rem);
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    margin: 0 auto;
+    color: white;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.5rem;
+    margin: 1.5rem auto;
+}
+
+@media (max-width: 600px) {
+    #container {
+        grid-template-columns: 1fr;
+    }
+}
+
+#form_login {
+    width: 30%;
+    padding: 2rem;
+    background-color: #1c1c1e;
+    color: white;
+    text-align: center;
+    border-radius: 1.5rem;
+    margin: 2rem auto;
+  }
+
+  #main_config_input {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.5rem;
+}
+
+.div_input {
+    background-color: #1c1c1e;
+    color: white;
+    padding: 1.5rem;
+    border: 0.125rem solid white;
+    border-radius: 1.5rem;
+    text-align: center;
+}
+
+#save-button {
+    width: 50%;
+    height: 30%;
+    vertical-align:middle;
+    font-size: 2em;
+    margin: 1em;
+}
+
+#start-button {
+    width: 50%;
+    height: 30%;
+    vertical-align:middle;
+    background-color: darkgreen;
+    font-size: 2em;
+    color:blanchedalmond;
+    margin: 1em;
+}
+
+.input_select {
+    width: 60%;
+    text-align: left;
+    margin-bottom: 1em;
+  }
+
+input[type="checkbox"] {
+    padding-left: 0px;
+    margin-left: 0px;
+    width: auto;
+    margin-bottom: 1em;
+ }
+
+ .bot_node {
+    background-color: #1c1c1e;
+    color: white;
+    padding: 1.5rem;
+    border: 0.125rem solid white;
+    border-radius: 1.5rem;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.bot_content {
+    color: white;
+    padding: 1rem;
+    
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+
+
+
+  .tableau_general_infos_bot{
+    color: white;
+    padding: 1rem;
+    
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+
+  .td-left-col {
+    align-items: center;
+    text-align: center;
+    width: 20%;
+    border: 1px solid rgb(124, 224, 141);
+  }
+  .td-right-col {
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    border: 1px solid rgb(124, 224, 141);
+    
+  }
+
+  .bot_content{
+    width: 100%;
+    border: 0.125rem solid white;
+    border-radius: 1.5rem;
+  }
+
+  .tableau_general_infos_bot{
+    width: 100%;
+    
+  }
+  .tableau_infos_bot{
+    width: 100%;
+  }
+
+  .td_gauche{
+    color: rgb(112, 61, 207);
+    text-align: right;
+  }
+
+  .td_droite{
+    color: rgb(11, 201, 52);
+    text-align: left;
+    padding-left: 1em;
+    
+  }
+
+  .div_lite_trade{
+    
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    border: 1px solid rgb(124, 224, 141);
+    margin-bottom: 1em;
+  }
+
+  input[type="checkbox"].check_pastille {
+    visibility: hidden;
+  }
+    input[type="checkbox"].check_pastille + span:before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+        }
+        
+        input[type="checkbox"].check_pastille:checked + span:before {
+        background-color: green;
+        }
+        
+        input[type="checkbox"].check_pastille:not(:checked) + span:before {
+        background-color: red;
+        }
+
+    .evolution_wallet_info{
+        align-items: center;
+    text-align: center;
+    width: 100%;
+    border: 1px solid rgb(124, 224, 141);
+    margin-bottom: 1em;
+    }
+
+    .tableau_infos_wallet_evolution{
+        width: 100%;
+        font-size: 1.5rem;
+    }
+
+    .td_gauche_evol{
+        width: 33%;
+        text-align: center;
+    }
+
+    .td_centre_evol{
+        width: 33%;
+        text-align: center;
+    }
+
+    .td_droite_evol{
+        width: 33%;
+        text-align: center;
+    }
+
+    .titre_infos_evol{
+        color: rgb(112, 61, 207);
+        text-align: right;
+    }
+
+    .valeur_infos_evol{
+        color: white;
+        text-align: left;
+        padding-left: 1em;
+    }
+
+    #log_node_content{
+      height: 20rem; /* définit la hauteur maximale */
+      overflow: auto; /* ajoute un défilement si nécessaire */
+     text-align: left;
+     padding-left: 2rem;
+     resize: vertical;
+    }
+
+    .tableau_trades{
+      width: 100%;
+      text-align: center;
+    }
+
+    .tr_trades_titre{
+      color: rgb(230, 252, 37);
+      font-style: oblique;
+      font-weight: bold;
+      font-size: 1.5em;
+      
+      
+    }
+
+
+    .div_list_trade{
+      height: 20rem; /* définit la hauteur maximale */
+      overflow: auto; /* ajoute un défilement si nécessaire */
+      
+      
+      resize: vertical;
+    }
+
+    
+
+    /* Trade Manuel */
+
+    .list-process li {
+      align-items: center;
+      text-align: center;
+      margin-bottom: 10px;
+      list-style-type: none;
+      padding: 5px;
+      
+  }
+  
+  .list-process li table tr td{
+      color: #ccc;
+      border: 1px solid rgb(202, 196, 196);
+  }
+  
+  .list-process li table{
+      background-color: rgb(50, 75, 146);
+  }
+  
+
+  
+/*
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+}*/
+
+.submit-button {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+#list_process {
+  float: left;
+  width: 30%; /* ou une autre largeur qui vous convient */
+ 
+  margin-top: 5rem;
+  align-items: center;
+  text-align: center;
+  overflow-y: auto;
+  background-color: #1c1c1e;
+    color: white;
+    padding: 1.5rem;
+    border: 0.125rem solid white;
+    border-radius: 1.5rem;
+  
+    margin-bottom: 1em;
+}
+
+#form {
+  float: right;
+  width: 50%; /* ou une autre largeur qui vous convient */
+  margin-right: 10rem;
+  background-color: #1c1c1e;
+    color: white;
+    padding: 1.5rem;
+    border: 0.125rem solid white;
+    border-radius: 1.5rem;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.form {
+  /*display: inline-block;*/
+  text-align: center;
+  margin-top: 5rem;
+  margin-right: 10rem;
+  padding: 5rem;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px #ccc;
+}
+
+.tableau_general_trade_manuel{
+  width: 100%;
+}
+
+.td_tableau_general_trade_manuel_gauche{
+  width: 50%;
+  margin-bottom: 2rem;
+  border: 0.125rem solid rgb(196, 179, 179);
+  padding-left: 5rem;
+  color: white;
+    
+}
+
+.td_tableau_general_trade_manuel_droite{
+  width: 50%;
+  padding-bottom: 2rem;
+  border: 0.125rem solid rgb(196, 179, 179);
+  padding-left: 5rem;
+  color: white;
+   
+}
+

@@ -1,0 +1,194 @@
+{
+  "1545099": {
+    "processInfo": {
+      "pid": "1545099",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "./monitor_price.js",
+        "1d",
+        "2500",
+        "short",
+        "20",
+        "0.39",
+        "10",
+        "0.04",
+        "true",
+        "true",
+        "ETH/USDT",
+        "bitget"
+      ],
+      "ppid": "1545050"
+    },
+    "timeframe": "1d",
+    "price": "2500",
+    "position": "short",
+    "amount": "20",
+    "tp_percentage": "0.39",
+    "tp_amount": "10",
+    "sl_percentage": "0.04",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "ETH/USDT",
+    "date": "2023-02-15T11:48:21.115Z"
+  },
+  "1556945": {
+    "processInfo": {
+      "pid": "1556945",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "./monitor_price.js",
+        "1h",
+        "2582.3",
+        "long",
+        "20",
+        "0.48",
+        "15",
+        "0.23",
+        "true",
+        "true",
+        "ETH/USDT",
+        "BITGET"
+      ],
+      "ppid": "1556933"
+    },
+    "timeframe": "1h",
+    "price": "2582.3",
+    "position": "long",
+    "amount": "20",
+    "tp_percentage": "0.48",
+    "tp_amount": "15",
+    "sl_percentage": "0.23",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "ETH/USDT",
+    "date": "2023-02-15T12:27:04.560Z"
+  },
+  "1557800": {
+    "processInfo": {
+      "pid": "1557800",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "./monitor_price.js",
+        "1h",
+        "2500",
+        "long",
+        "25",
+        "1.48",
+        "20",
+        "0.5",
+        "true",
+        "true",
+        "ETH/USDT",
+        "BITGET"
+      ],
+      "ppid": "1557384"
+    },
+    "timeframe": "1h",
+    "price": "2500",
+    "position": "long",
+    "amount": "25",
+    "tp_percentage": "1.48",
+    "tp_amount": "20",
+    "sl_percentage": "0.5",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "ETH/USDT",
+    "date": "2023-02-15T12:29:49.742Z"
+  },
+  "1562593": {
+    "processInfo": {
+      "pid": "1562593",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "./monitor_price.js",
+        "1m",
+        "2585.75",
+        "long",
+        "25",
+        "0.18",
+        "20",
+        "0.1",
+        "true",
+        "true",
+        "ETH/USDT",
+        "BITGET"
+      ],
+      "ppid": "1562387"
+    },
+    "timeframe": "1m",
+    "price": "2585.75",
+    "position": "long",
+    "amount": "25",
+    "tp_percentage": "0.18",
+    "tp_amount": "20",
+    "sl_percentage": "0.1",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "ETH/USDT",
+    "date": "2023-02-15T12:45:15.357Z"
+  },
+  "1562851": {
+    "processInfo": {
+      "pid": "1562851",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "./monitor_price.js",
+        "1m",
+        "2585.75",
+        "long",
+        "25",
+        "0.18",
+        "20",
+        "0.1",
+        "true",
+        "true",
+        "ETH/USDT",
+        "BITGET"
+      ],
+      "ppid": "1562799"
+    },
+    "timeframe": "1m",
+    "price": "2585.75",
+    "position": "long",
+    "amount": "25",
+    "tp_percentage": "0.18",
+    "tp_amount": "20",
+    "sl_percentage": "0.1",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "ETH/USDT",
+    "date": "2023-02-15T12:45:49.825Z"
+  },
+  "1563190": {
+    "processInfo": {
+      "pid": "1563190",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "./monitor_price.js",
+        "1m",
+        "2585.75",
+        "long",
+        "25",
+        "0.18",
+        "20",
+        "0.1",
+        "true",
+        "true",
+        "ETH/USDT",
+        "BITGET"
+      ],
+      "ppid": "1563127"
+    },
+    "timeframe": "1m",
+    "price": "2585.75",
+    "position": "long",
+    "amount": "25",
+    "tp_percentage": "0.18",
+    "tp_amount": "20",
+    "sl_percentage": "0.1",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "ETH/USDT",
+    "date": "2023-02-15T12:46:47.807Z"
+  }
+}
