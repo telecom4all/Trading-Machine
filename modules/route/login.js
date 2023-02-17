@@ -1,4 +1,5 @@
 const config = require('../config');
+const configSecret = require('../config_secret');
 const checkAuth = require('../auth');
 
 const loginRoute = (app) => {
@@ -22,7 +23,7 @@ const loginRoute = (app) => {
   });
 
   app.post('/login', (req, res) => {
-    if (req.body.password === config.parametres_generaux.password_web) {
+    if (req.body.password === configSecret.node.password_web) {
       req.session.auth_web = true;
       res.redirect('/');
     } else {

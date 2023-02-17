@@ -8,6 +8,7 @@ const homeRoute = (app) => {
     res.set('Pragma', 'no-cache');
     
     res.send(`
+        <!DOCTYPE html>
         <html>
         <head>
             <title>Bot MultiCoin MultiStrat</title>
@@ -35,6 +36,19 @@ const homeRoute = (app) => {
                     <div id="log_node_content"></div>   
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+            <script src="/home.js"></script>
+            <script>
+
+                setInterval(function() {
+                    get_log_bots();
+                }, ${config.parametres_generaux.delai_log*1000});
+
+                setInterval(function() {
+                    update_list_bot();   
+                }, ${config.parametres_generaux.delai_interface*1000});
+                
+            </script>
         </body>
         </html>
     `);
