@@ -9,6 +9,7 @@
     "memorystore": "^1.6.7",
     "mysql2": "^3.1.2",
     "node-cron": "^3.0.2",
+    "nodemailer": "^6.9.1",
     "pandas-js": "^0.2.4",
     "ps-node": "^0.1.6",
     "ta-lib": "^0.11.0",
