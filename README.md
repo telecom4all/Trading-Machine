@@ -39,11 +39,16 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
     
 13. Attention les port 80 et 443 sont des ports réserver parfois bloqué sur certain hébergeur pensais si c'est le cas a mettre des port au dessus de 3000
     
-14. Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log`
-15. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
-16. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
+
+14. pour activer de demarage au boot
+     `pm2 startup` 
+
+15. Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log -n api-service-staging`
+16. 
+17. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
+18. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
     
-17. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
+19. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
 
 
 ## Utilisation
@@ -79,7 +84,10 @@ qui sont les delai de rafrachissement des infos sur l'interface
 on peu lancer autant de bot qu'on veut sur des timeframe différente avec des parametre différents
 
 #### Page principal 
-la liste des bot que l'on a lancé que l'on peu supprimé
+la liste des bot que l'on a lancé que l'on peu supprimé 
+
+attention que le bot n'apparaitra qu'apres sa première execution donc si vous lancer un bot en time frame 1h a 11h15 vous ne verrai le bot qu'a partir de 12h 
+
 
 
 
