@@ -14,7 +14,7 @@
       "bol_std_bollinger": "2.25",
       "min_bol_spread_bollinger": "0",
       "long_ma_window_bollinger": "500",
-      "pair_list": "DOGE,LUNC"
+      "pair_list": "DOGE,LUNC,LTC,AAVE"
     },
     {
       "name": "RANGE_1",
@@ -31,10 +31,9 @@
   "parametres_generaux": {
     "botname": "Bot_futures_Multi",
     "botversion": "1",
-    "port_web": "4000",
-    "password_web": "123456",
     "delai_log": "5",
     "delai_interface": "20",
+    "delai_price": "5",
     "production": true,
     "debug": true,
     "debug_detail": true,
@@ -61,23 +60,76 @@
     "tp_2": "0.1",
     "is_sl": true,
     "sl": "0.5",
-    "maxOpenPosition": "5",
+    "maxOpenPosition": "2",
     "type": "both"
   },
   "historique": {
     "totalInvestment": "20",
     "soldeFile": "historiques-soldes-1.json"
   },
-  "timeFrames" : [
-    { "name": "1 minute", "abbreviation": "1m", "interval_formule": "60 * 1000", "interval": 60000, "cronSyntax": "* * * * *" },
-    { "name": "5 minutes", "abbreviation": "5m", "interval_formule": "5 * 60 * 1000", "interval": 300000, "cronSyntax": "*/5 * * * *" },
-    { "name": "15 minutes", "abbreviation": "15m", "interval_formule": "15 * 60 * 1000", "interval": 900000, "cronSyntax": "*/15 * * * *" },
-    { "name": "30 minutes", "abbreviation": "30m", "interval_formule": "30 * 60 * 1000", "interval": 1800000, "cronSyntax": "*/30 * * * *" },
-    { "name": "1 hour", "abbreviation": "1h", "interval_formule": "60 * 60 * 1000", "interval": 3600000, "cronSyntax": "0 * * * *" },
-    { "name": "4 hours", "abbreviation": "4h", "interval_formule": "4 * 60 * 60 * 1000", "interval": 14400000, "cronSyntax": "0 */4 * * *" },
-    { "name": "1 day", "abbreviation": "1d", "interval_formule": "24 * 60 * 60 * 1000", "interval": 86400000, "cronSyntax": "0 0 * * *" },
-    { "name": "1 week", "abbreviation": "1w", "interval_formule": "7 * 24 * 60 * 60 * 1000", "interval": 604800000, "cronSyntax": "0 0 * * 0" },
-    { "name": "1 month", "abbreviation": "1M", "interval_formule": "30 * 24 * 60 * 60 * 1000", "interval": 2592000000, "cronSyntax": "0 0 1 * *" }
+  "timeFrames": [
+    {
+      "name": "1 minute",
+      "abbreviation": "1m",
+      "interval_formule": "60 * 1000",
+      "interval": 60000,
+      "cronSyntax": "* * * * *"
+    },
+    {
+      "name": "5 minutes",
+      "abbreviation": "5m",
+      "interval_formule": "5 * 60 * 1000",
+      "interval": 300000,
+      "cronSyntax": "*/5 * * * *"
+    },
+    {
+      "name": "15 minutes",
+      "abbreviation": "15m",
+      "interval_formule": "15 * 60 * 1000",
+      "interval": 900000,
+      "cronSyntax": "*/15 * * * *"
+    },
+    {
+      "name": "30 minutes",
+      "abbreviation": "30m",
+      "interval_formule": "30 * 60 * 1000",
+      "interval": 1800000,
+      "cronSyntax": "*/30 * * * *"
+    },
+    {
+      "name": "1 hour",
+      "abbreviation": "1h",
+      "interval_formule": "60 * 60 * 1000",
+      "interval": 3600000,
+      "cronSyntax": "0 * * * *"
+    },
+    {
+      "name": "4 hours",
+      "abbreviation": "4h",
+      "interval_formule": "4 * 60 * 60 * 1000",
+      "interval": 14400000,
+      "cronSyntax": "0 */4 * * *"
+    },
+    {
+      "name": "1 day",
+      "abbreviation": "1d",
+      "interval_formule": "24 * 60 * 60 * 1000",
+      "interval": 86400000,
+      "cronSyntax": "0 0 * * *"
+    },
+    {
+      "name": "1 week",
+      "abbreviation": "1w",
+      "interval_formule": "7 * 24 * 60 * 60 * 1000",
+      "interval": 604800000,
+      "cronSyntax": "0 0 * * 0"
+    },
+    {
+      "name": "1 month",
+      "abbreviation": "1M",
+      "interval_formule": "30 * 24 * 60 * 60 * 1000",
+      "interval": 2592000000,
+      "cronSyntax": "0 0 1 * *"
+    }
   ]
-
 }

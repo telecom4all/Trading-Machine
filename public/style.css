@@ -121,6 +121,7 @@ input[type="checkbox"] {
  }
 
  .bot_node {
+    
     background-color: #1c1c1e;
     color: white;
     padding: 1.5rem;
@@ -130,6 +131,10 @@ input[type="checkbox"] {
     margin-bottom: 1em;
 }
 
+.trade_log{
+/*  float: inline-end;*/
+  clear: both;
+}
 .bot_content {
     color: white;
     padding: 1rem;
@@ -338,7 +343,8 @@ input[type="checkbox"] {
 #list_process {
   float: left;
   width: 30%; /* ou une autre largeur qui vous convient */
- 
+  height: 25rem; /* définit la hauteur maximale */
+      overflow: auto; /* ajoute un défilement si nécessaire */
   margin-top: 5rem;
   align-items: center;
   text-align: center;
@@ -397,3 +403,11 @@ input[type="checkbox"] {
    
 }
 
+#currentPrice{
+  cursor: pointer;
+}
+
+
+.logout-link{
+  color: red;
+}

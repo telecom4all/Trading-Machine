@@ -10,8 +10,9 @@ const placeTradeRoute = (app) => {
     for (const exchange of config.exchanges) {
         listExchanges += '<option value="' + exchange.name + '" ' + (exchange.name === config.parametres_generaux.exchange_active ? 'selected' : '') + '>' + exchange.name + '</option>';
     }
-
+ 
     res.send(`
+    <!DOCTYPE html>
     <html>
     <head>
         <title>Trade Manuel</title>
@@ -22,6 +23,7 @@ const placeTradeRoute = (app) => {
         <a href="/">Page principale</a>
         <a href="/configuration">Configuration</a>
         <a href="/place_trade">Trade Manuel</a>
+        <a href="/deconnection" class="logout-link">Deconnection</a>
         </nav>
         <h1>Trade Manuel</h1>
         <div id="main_trade">
@@ -29,6 +31,7 @@ const placeTradeRoute = (app) => {
                 <h3>List Trade  en attente</h3>
                 <div id="content_process"></div>
             </div>
+            
             <div id="form" class="form">
                 <div>
                     <label for="currentPrice">Current Price: <span id="currentPrice" onclick="put_price_on_pair(this.innerText)"></span> ${config.parametre_strategie_generaux.stableCoin}</label>
@@ -103,8 +106,29 @@ const placeTradeRoute = (app) => {
                 </div>
                 <input type="button" value="Submit" class="submit-button" onclick="send_trade()">
             </div>
+            <!-- Logs de winston -->
+            <div id="log_node" class="bot_node trade_log">
+                <h2>Logs du Node</h2>
+                <div id="log_node_content"></div>   
+            </div>
             
         </div>
+        <script src="/place_trade.js"></script>
+        <script>
+            setInterval(function() {
+                getListProcess();   
+            }, ${config.parametres_generaux.delai_interface*1000});
+
+            setInterval(function() {
+                get_price();
+            }, ${config.parametres_generaux.delai_price*1000});
+
+            setInterval(function() {
+                get_log_bots();
+            }, ${config.parametres_generaux.delai_log*1000});
+
+            
+        </script>
     </body>
     </html>
     `);

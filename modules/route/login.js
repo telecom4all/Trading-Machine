@@ -1,5 +1,8 @@
 const config = require('../config');
+const configSecret = require('../config_secret');
 const checkAuth = require('../auth');
+const bcrypt = require('bcrypt');
+
 
 const loginRoute = (app) => {
   app.get('/login', (req, res) => {
@@ -22,11 +25,21 @@ const loginRoute = (app) => {
   });
 
   app.post('/login', (req, res) => {
-    if (req.body.password === config.parametres_generaux.password_web) {
+    if (bcrypt.compareSync(req.body.password, configSecret.node.password_web)) {
       req.session.auth_web = true;
       res.redirect('/');
     } else {
       res.redirect('/login');
+    }
+  });
+
+  app.get('/deconnection', async (req, res) => {
+    try {
+      
+      req.session.destroy(); // Détruire la session enregistrée
+      res.redirect('/login'); // Rediriger l'utilisateur vers la page de connexion
+    } catch (err) {
+      res.send({status: false, message: err.message});
     }
   });
 };
