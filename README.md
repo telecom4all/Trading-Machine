@@ -76,7 +76,7 @@ le bouton save ne sert qu'a sauvegarder les informations pour plus de facilité 
 si mysql est activé le bot va crée 2 table dans mysql une table qui prendrons le nom du bot comme identifiant.
 une table se nomera : "wallet_"+nom bot, "trades_"+nom bot pour l'historique sur le dashboard
 
-le parametre fichier historique est utilisé pour garder un historique meme si mysql est pas activé mais uniquement pour l'evolution du wallet et un fichier sera crée avec ce nom donc changé ce nom a chaque bot si vous utilisé des wallet différent
+le parametre fichier historique (!!! NE PAS METTRE D'ESPACES DANS LE NOM DU FICHIER !!!) est utilisé pour garder un historique meme si mysql est pas activé mais uniquement pour l'evolution du wallet et un fichier sera crée avec ce nom donc changé ce nom a chaque bot si vous utilisé des wallet différent
 
 ces parametre ci sont par contre pour l'interface : 
 '''
