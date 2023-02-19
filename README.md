@@ -12,7 +12,7 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
 6. Cryptez votre nouveau mot de passe en exécutant `node crypt_password.js`
 7. Accédez au dossier principal `cd ..`
 8. Installez les dépendances `npm install`
-9. ###Telegram
+9. ### Telegram
     je vous renvoie a ce lien pour créer votre bot télégram pour avoir votre token a mettre dans le fichier config_secret.json :
     
     https://medium.com/@robertbracco1/how-to-write-a-telegram-bot-to-send-messages-with-python-bcdf45d0a580
@@ -21,14 +21,14 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
       `@getidsbot`.
     puis cliquez sur "you" et vous verrai votre id a mettre dans le fichier config_secret.json
 
-10. ###double authentification
+10. ### double authentification
     pour la double authentification il faut mettre la variable `is2fa = true`  et il faut activé la double authentification sur votre compte gmail (je ne l'ai fait que pour gmail mais vous pouvez creer un compte gmail qui ne sert qu'a envoyé l'email vous pouvez comfigurer pour la reception du code le mail que vous voulez dans mail_destinataire ) je vous renvoie sur ce lien : 
 
     https://miracleio.me/snippets/use-gmail-with-nodemailer/
 
     modifier les informations pour le mail dans le fichier config-secret.json
     
-11. ###HTTPS
+11. ### HTTPS
     Si vous voulez activer HTTPS, modifiez `"isSSL": true` et ajoutez les valeurs reçues du fichier d'installation `"sslKeyPath" : "/etc/letsencrypt/live/xxxxxx/privkey.pem"` et `"sslCertPath": "/etc/letsencrypt/live/xxxxxx/fullchain.pem"`.
    
     Modifiez le fichier `Trading-Machine/jsons/configs/config_secret.json` avec les informations pour l'éxchange et pour HTTPS que le script d'installation a fourni, ainsi que votre nouveau mot de passe. 
@@ -50,7 +50,7 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
      `sudo systemctl start pm2-root.service`
 18. tester si le service tourne  
          `sudo systemctl status pm2-root.service`
-         
+
 19. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
 20. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
     
