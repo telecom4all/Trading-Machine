@@ -31,16 +31,6 @@ et mettre les valeur recu du fichier d'installation
 "sslCertPath": "/etc/letsencrypt/live/xxxxxx/fullchain.pem",
 
 
-sudo chown -R $(whoami):$(whoami) /etc/letsencrypt/live/<DOMAINE>/
-
-sudo apt-get install libcap2-bin
-
-sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node
-
-
-
-
-
 
 pour démaré le node:
 sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log
