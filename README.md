@@ -2,10 +2,13 @@
 Mix Bot de trading et trade manuel
 
 cd Trading-Machine
+
 cd scripts_app
+
 sudo bash install.sh
 
 crypter le nouveau mot de passe :
+
 node crypt_password.js
 
 
