@@ -44,11 +44,17 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
      `pm2 startup` 
 
 15. Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log -n api-service-staging`
-16. 
-17. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
-18. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
+16. sauvegardez la configuration du nodes au démarage `pm2 save` si une erreur apparait essayé un `pm2 save --force`
+17. pour activé et démarer le service
+     `sudo systemctl enable pm2-root.service`
+     `sudo systemctl start pm2-root.service`
+18. tester si le service tourne  
+         `sudo systemctl status pm2-root.service`
+         
+19. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
+20. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
     
-19. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
+21. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
 
 
 ## Utilisation
