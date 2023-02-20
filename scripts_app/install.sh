@@ -276,4 +276,4 @@ echo -e "\e[33m*****************************************************************
 
 cd ..
 npm install
-node TradingMachine.js
+sudo node TradingMachine.js
