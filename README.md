@@ -4,15 +4,12 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
 
 ## Installation
 
-1. Clonez le dépôt `git clone https://github.com/telecom4all/Trading-Machine.git`
-2. Accédez au dossier `cd Trading-Machine`
-3. Accédez au dossier des scripts `cd scripts_app`
-4. Exécutez le script d'installation `sudo bash install.sh`
-5. Installer la lib bcrypt pour le cryptage de mot de passe `npm install bcrypt` 
-6. Cryptez votre nouveau mot de passe en exécutant `node crypt_password.js`
-7. Accédez au dossier principal `cd ..`
-8. Installez les dépendances `npm install`
-9. ### Telegram
+1. Téléchargé le fichier d'installation `wget https://raw.githubusercontent.com/telecom4all/Trading-Machine/main/scripts_app/install.sh`
+2. executé l'installation `bash install.sh`
+
+3. Cryptez votre nouveau mot de passe en exécutant `node crypt_password.js`
+
+4. ### Telegram
     je vous renvoie a ce lien pour créer votre bot télégram pour avoir votre token a mettre dans le fichier config_secret.json :
     
     https://medium.com/@robertbracco1/how-to-write-a-telegram-bot-to-send-messages-with-python-bcdf45d0a580
@@ -21,40 +18,40 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
       `@getidsbot`.
     puis cliquez sur "you" et vous verrai votre id a mettre dans le fichier config_secret.json
 
-10. ### double authentification
+5. ### double authentification
     pour la double authentification il faut mettre la variable `is2fa = true`  et il faut activé la double authentification sur votre compte gmail (je ne l'ai fait que pour gmail mais vous pouvez creer un compte gmail qui ne sert qu'a envoyé l'email vous pouvez comfigurer pour la reception du code le mail que vous voulez dans mail_destinataire ) je vous renvoie sur ce lien : 
 
     https://miracleio.me/snippets/use-gmail-with-nodemailer/
 
     modifier les informations pour le mail dans le fichier config-secret.json
     
-11. ### HTTPS
+6.  ### HTTPS
     Si vous voulez activer HTTPS, modifiez `"isSSL": true` et ajoutez les valeurs reçues du fichier d'installation `"sslKeyPath" : "/etc/letsencrypt/live/xxxxxx/privkey.pem"` et `"sslCertPath": "/etc/letsencrypt/live/xxxxxx/fullchain.pem"`.
    
     Modifiez le fichier `Trading-Machine/jsons/configs/config_secret.json` avec les informations pour l'éxchange et pour HTTPS que le script d'installation a fourni, ainsi que votre nouveau mot de passe. 
     Le mot de passe par défaut est `123456`. 
     
     
-12. Pour tester si tout va bien  `sudo node /home/<xxxxx>/Trading-Machine/TradingMachine.js`
+7.  Pour tester si tout va bien  `sudo node /home/<xxxxx>/Trading-Machine/TradingMachine.js`
     
-13. Attention les port 80 et 443 sont des ports réserver parfois bloqué sur certain hébergeur pensais si c'est le cas a mettre des port au dessus de 3000
+8.  Attention les port 80 et 443 sont des ports réserver parfois bloqué sur certain hébergeur pensais si c'est le cas a mettre des port au dessus de 3000
     
 
-14. pour activer de demarage au boot
+9. pour activer de demarage au boot
      `pm2 startup` 
 
-15. Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log -n api-service-staging`
-16. sauvegardez la configuration du nodes au démarage `pm2 save` si une erreur apparait essayé un `pm2 save --force`
-17. pour activé et démarer le service
+10. Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log -n api-service-staging`
+11. sauvegardez la configuration du nodes au démarage `pm2 save` si une erreur apparait essayé un `pm2 save --force`
+12. pour activé et démarer le service
      `sudo systemctl enable pm2-root.service`
      `sudo systemctl start pm2-root.service`
-18. tester si le service tourne  
+13. tester si le service tourne  
          `sudo systemctl status pm2-root.service`
 
-19. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
-20. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
+14. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
+15. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
     
-21. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
+16. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
 
 
 ## Utilisation
