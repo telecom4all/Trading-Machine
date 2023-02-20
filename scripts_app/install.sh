@@ -167,7 +167,7 @@ if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
 MYSQL_SCRIPT
 
     # Vérifie la connexion à la base de données avec le nouvel utilisateur
-    mysql -u "$username" -p"$password" -e "use $dbname"
+    sudo mysql -u "$username" -p"$password" -e "use $dbname"
     if [ $? -eq 0 ]; then
         echo -e "\e[32mConnexion à la base de données réussie!\e[0m"
     else
