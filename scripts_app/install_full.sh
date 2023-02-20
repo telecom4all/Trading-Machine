@@ -348,3 +348,5 @@ else
     mv $newjson_file $json_file
     
 fi
+
+npm install
