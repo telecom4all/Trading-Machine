@@ -7,7 +7,7 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
 1. Téléchargé le fichier d'installation `wget https://raw.githubusercontent.com/telecom4all/Trading-Machine/main/scripts_app/install.sh`
 2. executé l'installation `bash install.sh`
 
-3. Cryptez votre nouveau mot de passe en exécutant `node crypt_password.js`
+3. Cryptez votre nouveau mot de passe en exécutant `node crypt_password.js` et modifier la valeur dansle fichier config_secret.json ainsi que "mysql_active": true si vous voulez mysql
 
 4. ### Telegram
     je vous renvoie a ce lien pour créer votre bot télégram pour avoir votre token a mettre dans le fichier config_secret.json :
