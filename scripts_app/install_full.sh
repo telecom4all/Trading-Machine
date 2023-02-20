@@ -265,16 +265,18 @@ MYSQL_SCRIPT
         echo -e "\e[33m*                                                                                                      *\e[0m" 
         echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m"
         echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m"
-        echo -e "\e[33m* 
+        echo -e "\e[33m*                                                                                                      *\e[0m" 
         cd ..
+        newjson_file="$PWD/scripts_app/config_secret.json"
         json_file="$PWD/jsons/configs/config_secret.json"
-        jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem" | .mysql.mysql_active=true | .mysql.user="$username" | .mysql.password="$password" | .mysql.database="$dbname"' $json_file > config_new.json
-                                                                                                         *\e[0m" 
+        jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem" | .mysql.mysql_active=true | .mysql.user="$username" | .mysql.password="$password" | .mysql.database="$dbname"' $json_file > $newjson_file
+                                                                                                        
     else
         echo -e ""
         cd ..
+        newjson_file="$PWD/scripts_app/config_secret.json"
         json_file="$PWD/jsons/configs/config_secret.json"
-        jq '.mysql.mysql_active=true | .mysql.user="$username" | .mysql.password="$password" | .mysql.database="$dbname"' $json_file > config_new.json
+        jq '.mysql.mysql_active=true | .mysql.user="$username" | .mysql.password="$password" | .mysql.database="$dbname"' $json_file > $newjson_file
     
     fi
     echo -e "\e[33m*                                                                                                      *\e[0m"
@@ -288,7 +290,7 @@ MYSQL_SCRIPT
     echo -e "\e[33m********************************************************************************************************\e[0m"
     echo -e "\e[33m********************************************************************************************************\e[0m"
 
-    mv config_new.json $json_file
+    mv $newjson_file $json_file
 else 
     
     #sauvedarge des informations
@@ -327,18 +329,19 @@ else
         echo -e "\e[33m*                                                                                                      *\e[0m" 
         echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m" 
         echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m" 
-        echo -e "\e[33m*  
+        echo -e "\e[33m*                                                                                                      *\e[0m"
         cd ..
+        newjson_file="$PWD/scripts_app/config_secret.json"
         json_file="$PWD/jsons/configs/config_secret.json"
-        jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem"' $json_file > config_new.json                                                                                                    *\e[0m" 
+        jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem"' $json_file > $newjson_file                                                                                                 
     else
-        echo -e "" 
+        echo "" 
     fi
     echo -e "\e[33m*                                                                                                      *\e[0m"
     echo -e "\e[33m********************************************************************************************************\e[0m"
     echo -e "\e[33m********************************************************************************************************\e[0m"
 
     
-    mv config_new.json $json_file
+    mv $newjson_file $json_file
     
 fi
