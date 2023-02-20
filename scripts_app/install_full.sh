@@ -271,14 +271,14 @@ MYSQL_SCRIPT
         cd ..
         newjson_file="$PWD/scripts_app/config_secret.json"
         json_file="$PWD/jsons/configs/config_secret.json"
-        jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem" | .mysql.mysql_active=true | .mysql.user="$username" | .mysql.password="$password" | .mysql.database="$dbname"' $json_file > $newjson_file
-                                                                                                        
+        jq --arg domaine "$domaine" --arg username "$username" --arg password "$password" --arg dbname "$dbname" '.node.sslKeyPath="/etc/letsencrypt/live/\($domaine)/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/\($domaine)/fullchain.pem" | .mysql.mysql_active=true | .mysql.user=$username | .mysql.password=$password | .mysql.database=$dbname' "$json_file" > "$newjson_file"
+                                                                                                
     else
         echo -e ""
         cd ..
         newjson_file="$PWD/scripts_app/config_secret.json"
         json_file="$PWD/jsons/configs/config_secret.json"
-        jq '.mysql.mysql_active=true | .mysql.user="$username" | .mysql.password="$password" | .mysql.database="$dbname"' $json_file > $newjson_file
+        jq --arg username "$username" --arg password "$password" --arg dbname "$dbname" '.mysql |= {mysql_active: true, user: $username, password: $password, database: $dbname}' $json_file > $newjson_file
     
     fi
     echo -e "\e[33m*                                                                                                      *\e[0m"
@@ -335,7 +335,8 @@ else
         cd ..
         newjson_file="$PWD/scripts_app/config_secret.json"
         json_file="$PWD/jsons/configs/config_secret.json"
-        jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem"' $json_file > $newjson_file                                                                                                 
+        jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem"' $json_file > $newjson_file         
+        jq --arg domaine "$domaine"  '.node.sslKeyPath="/etc/letsencrypt/live/\($domaine)/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/\($domaine)/fullchain.pem"' "$json_file" > "$newjson_file"                                                                                        
     else
         echo "" 
     fi
