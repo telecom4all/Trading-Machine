@@ -25,6 +25,7 @@ then
         sudo apt-get update
         sudo apt-get upgrade -y
         sudo apt-get install -y git
+        sudo apt-get install gcc g++ make -y
     elif [ -f /etc/centos-release ]; then
         # Installer Git sur CentOS/RHEL
         sudo yum install -y git
@@ -33,6 +34,7 @@ then
         sudo apt-get update
         sudo apt-get upgrade -y
         sudo apt-get install -y git
+        sudo apt-get install gcc g++ make -y
     fi
 else
     echo -e "\e[32mGit est déjà installé sur ce système\e[0m"
