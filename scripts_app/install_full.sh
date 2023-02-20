@@ -276,8 +276,9 @@ MYSQL_SCRIPT
     echo -e "\e[33m********************************************************************************************************\e[0m"
 
     cd ..
-
-
+    json_file="$PWD/jsons/configs/config_secret.json"
+    jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem" | .mysql.mysql_active=true | .mysql.user="$username" | .mysql.password="$password" | .mysql.database="$dbname"' $json_file > config_new.json
+    mv config_new.json $json_file
 else 
     #sauvedarge des informations
     echo -e "\e[33m********************************************************************************************************\e[0m" > informations.txt
@@ -314,4 +315,8 @@ else
     echo -e "\e[33m********************************************************************************************************\e[0m"
 
     cd ..
+    json_file="$PWD/jsons/configs/config_secret.json"
+    jq '.node.sslKeyPath="/etc/letsencrypt/live/$domaine/privkey.pem" | .node.sslCertPath="/etc/letsencrypt/live/$domaine/fullchain.pem"' $json_file > config_new.json
+    mv config_new.json $json_file
+    
 fi
