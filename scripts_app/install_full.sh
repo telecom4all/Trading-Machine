@@ -5,13 +5,6 @@ echo -e "\e[33m* INSTALLATION DE TRADING-MACHINE *\e[0m"
 echo -e "\e[33m***********************************\e[0m"
 echo ""
 
-
-
-# Vérifier si l'utilisateur a les droits d'administration
-#if [ "$EUID" -ne 0 ]
-#  then echo -e "\e[31mCe script doit être exécuté en tant qu'administrateur.\e[0m"  && echo ""
-#  exit
-#fi
 sudo dpkg --configure -a
 
 echo -e "\e[34mINSTALLATION DE TRADING MACHINE \e[0m"
