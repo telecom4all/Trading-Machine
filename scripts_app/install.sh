@@ -5,120 +5,81 @@ echo -e "\e[33m* INSTALLATION DE TRADING-MACHINE *\e[0m"
 echo -e "\e[33m***********************************\e[0m"
 echo ""
 
-sudo dpkg --configure -a
+# Vérifier le système d'exploitation
+if [ -f /etc/debian_version ]; then
+    OS="debian"
+    echo -e "\e[32mVersion de linux : $OS compatible avec TRADING-MACHINE\e[0m"
+    echo ""
+elif [ -f /etc/redhat-release ]; then
+    OS="centos"
+    echo -e "\e[31mVersion de linux : $OS non compatible avec TRADING-MACHINE\e[0m"
+    exit 0
+else
+    OS="ubuntu"
+    echo -e "\e[32mVersion de linux : $OS compatible avec TRADING-MACHINE\e[0m"
+    echo ""
+fi
 
-echo -e "\e[34mINSTALLATION DE TRADING MACHINE \e[0m"
-echo -e "\e[34m------------------------------\e[0m"
+
+echo -e "\e[34mMISE A JOUR DU SYSTEME \e[0m"
+echo -e "\e[34m------------------------\e[0m"
+echo ""
+# mise a jour du systeme
+sudo dpkg --configure -a
+sudo apt-get update -y
+sudo apt-get upgrade -y 
+
+echo -e "\e[34mINSTALLATION DES DEPENDANCES \e[0m"
+echo -e "\e[34m-----------------------------\e[0m"
+echo ""
+sudo apt-get install gcc g++ make -y
+sudo apt-get install jq -y
+
+
+echo -e "\e[34mINSTALLATION DE GIT \e[0m"
+echo -e "\e[34m--------------------\e[0m"
 echo ""
 # Vérifier si git est installé
 if ! command -v git &> /dev/null
 then
-    # Vérifier la distribution Linux
-    if [ -f /etc/debian_version ]; then
-        # Installer Git sur Debian/Ubuntu
-        sudo apt-get update
-        sudo apt-get upgrade -y
-        sudo apt-get install -y git
-        sudo apt-get install gcc g++ make -y
-        sudo apt-get install jq -y
-    elif [ -f /etc/centos-release ]; then
-        # Installer Git sur CentOS/RHEL
-        sudo yum install -y git
-    else
-        # Installer Git sur Debian/Ubuntu
-        sudo apt-get update
-        sudo apt-get upgrade -y
-        sudo apt-get install -y git
-        sudo apt-get install gcc g++ make -y
-        sudo apt-get install jq -y
-    fi
+    sudo apt-get install -y git
 else
     echo -e "\e[32mGit est déjà installé sur ce système\e[0m"
 fi
 
-git clone https://github.com/telecom4all/Trading-Machine.git
-cd Trading-Machine
-
-cd scripts_app
-sudo apt-get install jq -y
-
 echo -e "\e[34mINSTALLATION DE NODEJS ET NPM \e[0m"
 echo -e "\e[34m------------------------------\e[0m"
 echo ""
-
-# Vérifier le système d'exploitation
-if [ -f /etc/debian_version ]; then
-    OS="debian"
-    PKG_MANAGER="apt-get"
-    echo -e "\e[32mVersion de linux : $OS\e[0m"
-    echo ""
-    # mise a jour du systeme
-    sudo  $PKG_MANAGER update
-    #$PKG_MANAGER install -y snapd
-    #snap install core
-    #snap refresh core
-    #snap install --classic certbot
-elif [ -f /etc/redhat-release ]; then
-    OS="centos"
-    PKG_MANAGER="yum"
-    echo -e "\e[32mVersion de linux : $OS\e[0m"
-    echo ""
-    # Installer les dépendances pour Certbot
-    #$PKG_MANAGER install -y epel-release
-    #$PKG_MANAGER install -y certbot python2-certbot-apache
-else
-    OS="ubuntu"
-    PKG_MANAGER="apt-get"
-    echo -e "\e[32mVersion de linux : $OS\e[0m"
-    echo ""
-    # mise a jour du systeme
-    sudo $PKG_MANAGER update
-    #$PKG_MANAGER install -y snapd
-    #snap install core
-    #snap refresh core
-    #snap install --classic certbot
-fi
 
 # Vérifier si Node.js est installé et installer si nécessaire
 if ! command -v node >/dev/null; then
     echo -e "\e[31mNode.js n'est pas installé.\e[0m"
     echo -e "\e[32mInstallation de nodejs ...\e[0m"
     curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-    sudo $PKG_MANAGER update
-    sudo $PKG_MANAGER install -y nodejs
+    sudo apt-get update
+    sudo apt-get install -y nodejs
+else
+    echo -e "\e[32mNode JS est déjà installé sur ce système\e[0m"
 fi
 
 # Vérifier npm est installé  et installer si nécessaire
 if ! command -v npm >/dev/null; then
     echo -e "\e[31mNPM n'est pas installé.\e[0m"
     echo -e "\e[32mInstallation de NPM ...\e[0m"
-    sudo $PKG_MANAGER install -y npm
+    sudo apt-get install -y npm
+else
+    echo -e "\e[32mNPM est déjà installé sur ce système\e[0m"
 fi
 
-# Vérifier si la version de Node.js est >= 18.12.1
-#if node -v | grep -vqE "v1[0-8]\.|v1[0-7]$|v1[0-6]\."; then
-#    echo -e "\e[32mNode.js version >= 18.12.1 trouvée.\e[0m"
-#else
-#    echo -e "\e[31mNode.js version >= 18.12.1 n'est pas trouvée.\e[0m"
-#    echo -e "\e[32mInstallation de nodejs version >= 18.12.1 ...\e[0m"
-#    $PKG_MANAGER install -y nodejs
-#fi
+echo -e "\e[34mTELECHARGEMENT DE TRADING-MACHINE \e[0m"
+echo -e "\e[34m----------------------------------\e[0m"
+echo ""
 
-# Vérifier si la version de npm est >= 18.12.1
-#if npm -v | grep -vqE "6\.([0-9]|[1-9][0-9])\."; then
-#    echo -e "\e[32mNPM version >= 6.0.0 trouvée.\e[0m"
-#else
-#    echo -e "\e[31mNPM version >= 6.0.0 n'est pas trouvée.\e[0m"
-#    echo -e "\e[32mInstallation de NPM version >= 6.0.0 ...\e[0m"
-#    echo " Installation..."
-#    $PKG_MANAGER install -y npm
-#fi
-
-
-
+git clone https://github.com/telecom4all/Trading-Machine.git
+cd Trading-Machine
+cd scripts_app
 npm install
 sudo npm install -g pm2
-
 
 echo ""
 echo -e "\e[34mINSTALLATION CERTBOT pour le HTTPS \e[0m"
@@ -127,23 +88,12 @@ echo ""
 # Demande à l'utilisateur s'il veut installer CERTBOT
 read -p $'\e[35mVoulez-vous installer CERTBOT pour le HTTPS (y/n)? \e[0m' answercertbot
 if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
-    if [ -f /etc/debian_version ]; then
-        # Installer les dépendances pour Certbot
-        sudo $PKG_MANAGER install -y snapd
-        snap install core
-        snap refresh core
-        snap install --classic certbot
-    elif [ -f /etc/redhat-release ]; then
-        # Installer les dépendances pour Certbot
-        $PKG_MANAGER install -y epel-release
-        $PKG_MANAGER install -y certbot python2-certbot-apache
-    else
-        # Installer les dépendances pour Certbot
-        sudo $PKG_MANAGER install -y snapd
-        snap install core
-        snap refresh core
-        snap install --classic certbot
-    fi
+    # Installer les dépendances pour Certbot
+    sudo apt-get install -y snapd
+    snap install core
+    snap refresh core
+    snap install --classic certbot
+
     echo ""
     echo -e "\e[32mGénération des certificats SSL\e[0m"
     # Générer le certificat SSL avec Certbot
@@ -164,13 +114,13 @@ fi
 
 echo ""
 echo -e "\e[34mINSTALLATION du Serveur MYSQL  \e[0m"
-echo -e "\e[34m----------------------\e[0m"
+echo -e "\e[34m-------------------------------\e[0m"
 echo ""
 
 # Demande à l'utilisateur s'il veut installer MYSQL
 read -p $'\e[35mVoulez-vous installer le Serveur MYSQL (y/n)? \e[0m' answermysql
 if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
-    sudo $PKG_MANAGER install mysql-server -y
+    sudo apt-get install mysql-server -y
 
     # Demande le nom d'utilisateur, le mot de passe et le nom de la base de données
     read -p $'\e[35mEntrez le nom de l utilisateur MySQL: \e[0m' username
@@ -222,24 +172,74 @@ MYSQL_SCRIPT
         echo -e "\e[31mErreur de connexion à la base de données.\e[0m"
     fi
 
-    
+fi
     
 
-    #sauvedarge des informations
-    echo -e "\e[33m********************************************************************************************************\e[0m" > informations.txt
-    echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
-    echo -e "\e[33m* Vous pourrez revoir ces informations ultérieurement dans le fichier :                                *\e[0m" >> informations.txt 
-    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-    echo -e "\e[33m*/home/angelz/Trading-Machine/scripts_bash/informations.txt                                            *\e[0m" >> informations.txt
-    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+
+echo ""
+echo -e "\e[34mMODIFICATION DU FICHIER DE CONFIGURATION  \e[0m"
+echo -e "\e[34m------------------------------------------\e[0m"
+echo ""
+
+
+cd ..
+path_machine = "$PWD"
+newjson_file="$PWD/scripts_app/config_secret.json"
+json_file="$PWD/jsons/configs/config_secret.json"
+if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
+    sed -i "s/\"sslKeyPath\"\s*:\s*\".*\"/\"sslKeyPath\": \"/etc/letsencrypt/live/$domain/privkey.pem\"/" $json_file
+    sed -i "s/\"sslCertPath\"\s*:\s*\".*\"/\"sslCertPath\": \"/etc/letsencrypt/live/$domain/fullchain.pem\"/" $json_file
     
-        echo -e "\e[33m* Voici les informations pour le HTTPS a mettre dans le fichier jsons/configs/config_secret.json       *\e[0m" >> informations.txt
-        echo -e "\e[33m* Dans la partie node du fichierjsons/configs/config_secret.json changer ces infos :                   *\e[0m" >> informations.txt
-        echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-        echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m" >> informations.txt
-        echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m" >> informations.txt
-        echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+fi
+sleep 2
+if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
+    jq --arg username "$username" --arg password "$password" --arg dbname "$dbname" '.mysql.user=$username | .mysql.password=$password | .mysql.database=$dbname' $json_file > $newjson_file
+    mv $newjson_file $json_file
+fi
+
+cd scripts_app
+
+
+echo ""
+echo -e "\e[34mRESUME  \e[0m"
+echo -e "\e[34m------------------------------------------\e[0m"
+echo ""
+#sauvedarge des informations
+echo -e "\e[33m********************************************************************************************************\e[0m" > informations.txt
+echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
+echo -e "\e[33m* Vous pourrez revoir ces informations ultérieurement dans le fichier :                                *\e[0m" >> informations.txt 
+echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+echo -e "\e[33m*$path_machine/scripts_bash/informations.txt                                            *\e[0m" >> informations.txt
+echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+
+#affichage
+echo -e "\e[33m********************************************************************************************************\e[0m" 
+echo -e "\e[33m********************************************************************************************************\e[0m" 
+echo -e "\e[33m* Vous pourrez revoir ces informations ultérieurement dans le fichier :                                *\e[0m" 
+echo -e "\e[33m*                                                                                                      *\e[0m" 
+echo -e "\e[33m*$path_machine/scripts_bash/informations.txt                                            *\e[0m"
+echo -e "\e[33m*                                                                                                      *\e[0m" 
+echo -e "\e[33m*                                                                                                      *\e[0m" 
+
+if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
+    echo -e "\e[33m* Voici les informations pour le HTTPS a mettre dans le fichier jsons/configs/config_secret.json       *\e[0m" >> informations.txt
+    echo -e "\e[33m* Dans la partie node du fichierjsons/configs/config_secret.json changer ces infos :                   *\e[0m" >> informations.txt
+    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+    echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m" >> informations.txt
+    echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m" >> informations.txt
+    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+
+    #affichage
+    echo -e "\e[33m* Voici les informations pour le HTTPS a mettre dans le fichier jsons/configs/config_secret.json       *\e[0m" 
+    echo -e "\e[33m* Dans la partie node du fichierjsons/configs/config_secret.json changer ces infos :                   *\e[0m" 
+    echo -e "\e[33m*                                                                                                      *\e[0m" 
+    echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m"
+    echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m"
+    echo -e "\e[33m*                                                                                                      *\e[0m" 
+
+fi
+if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
     echo -e "\e[33m* Voici les informations pour MYSQL a mettre dans le fichier jsons/configs/config_secret.json          *\e[0m" >> informations.txt
     echo -e "\e[33m* Dans la partie mysql du fichierjsons/configs/config_secret.json changer ces infos :                  *\e[0m" >> informations.txt
     echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
@@ -247,24 +247,8 @@ MYSQL_SCRIPT
     echo -e "\e[33m* 'password' : '$password',                                                                            *\e[0m" >> informations.txt
     echo -e "\e[33m* 'database' : '$dbname',                                                                              *\e[0m" >> informations.txt
     echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-    echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
-    echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
 
-    #affichage des informations
-    echo -e "\e[33m********************************************************************************************************\e[0m"
-    echo -e "\e[33m********************************************************************************************************\e[0m"
-    echo -e "\e[33m* Vous pourrez revoir ces informations ultérieurement dans le fichier :                                *\e[0m" 
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-    echo -e "\e[33m*/home/angelz/Trading-Machine/scripts_bash/informations.txt                                            *\e[0m"
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-        echo -e "\e[33m* Voici les informations pour le HTTPS a mettre dans le fichier jsons/configs/config_secret.json       *\e[0m" 
-        echo -e "\e[33m* Dans la partie node du fichierjsons/configs/config_secret.json changer ces infos :                   *\e[0m" 
-        echo -e "\e[33m*                                                                                                      *\e[0m" 
-        echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m"
-        echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m"
-        echo -e "\e[33m*                                                                                                      *\e[0m" 
-    
+
     echo -e "\e[33m*                                                                                                      *\e[0m"
     echo -e "\e[33m* Voici les informations pour MYSQL a mettre dans le fichier jsons/configs/config_secret.json          *\e[0m" 
     echo -e "\e[33m* Dans la partie mysql du fichierjsons/configs/config_secret.json changer ces infos :                  *\e[0m"
@@ -272,52 +256,17 @@ MYSQL_SCRIPT
     echo -e "\e[33m* 'user' : '$username',                                                                                *\e[0m"
     echo -e "\e[33m* 'password' : '$password',                                                                            *\e[0m"
     echo -e "\e[33m* 'database' : '$dbname',                                                                              *\e[0m"
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-    echo -e "\e[33m********************************************************************************************************\e[0m"
-    echo -e "\e[33m********************************************************************************************************\e[0m"
 
-else 
-    
-    #sauvedarge des informations
-    echo -e "\e[33m********************************************************************************************************\e[0m" > informations.txt
-    echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
-    echo -e "\e[33m* Vous pourrez revoir ces informations ultérieurement dans le fichier :                                *\e[0m" >> informations.txt
-    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-    echo -e "\e[33m*/home/angelz/Trading-Machine/scripts_bash/informations.txt                                            *\e[0m" >> informations.txt
-    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-        echo -e "\e[33m* Voici les informations pour le HTTPS a mettre dans le fichier jsons/configs/config_secret.json       *\e[0m" >> informations.txt
-        echo -e "\e[33m* Dans la partie node du fichierjsons/configs/config_secret.json changer ces infos :                   *\e[0m" >> informations.txt
-        echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-        echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m" >> informations.txt
-        echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m" >> informations.txt
-        echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-    echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
-    echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
-    echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
-
-    #affichage des informations
-    echo -e "\e[33m********************************************************************************************************\e[0m"
-    echo -e "\e[33m********************************************************************************************************\e[0m"
-    echo -e "\e[33m* Vous pourrez revoir ces informations ultérieurement dans le fichier :                                *\e[0m" 
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-    echo -e "\e[33m*/home/angelz/Trading-Machine/scripts_bash/informations.txt                                            *\e[0m"
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-         echo -e "\e[33m* Voici les informations pour le HTTPS a mettre dans le fichier jsons/configs/config_secret.json       *\e[0m" 
-        echo -e "\e[33m* Dans la partie node du fichierjsons/configs/config_secret.json changer ces infos :                   *\e[0m" 
-        echo -e "\e[33m*                                                                                                      *\e[0m" 
-        echo -e "\e[33m* 'sslKeyPath' : '/etc/letsencrypt/live/$domaine/privkey.pem',                                         *\e[0m" 
-        echo -e "\e[33m* 'sslCertPath' : '/etc/letsencrypt/live/$domaine/fullchain.pem',                                      *\e[0m" 
-        echo -e "\e[33m*                                                                                                      *\e[0m"
-                                                                             
-    echo -e "\e[33m*                                                                                                      *\e[0m"
-    echo -e "\e[33m********************************************************************************************************\e[0m"
-    echo -e "\e[33m********************************************************************************************************\e[0m"
-
-    
-   
     
 fi
 
-npm install
+
+echo -e "\e[33m*                                                                                                      *\e[0m" >> informations.txt
+echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
+echo -e "\e[33m********************************************************************************************************\e[0m" >> informations.txt
+
+
+#affichage
+echo -e "\e[33m*                                                                                                      *\e[0m"
+echo -e "\e[33m********************************************************************************************************\e[0m"
+echo -e "\e[33m********************************************************************************************************\e[0m"
