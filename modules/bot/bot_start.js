@@ -13,6 +13,7 @@ const take_profit = require('../bot/bot_utilities/take_profit');
 const stop_loss = require('../bot/bot_utilities/stop_loss');
 const path = require('path');
 
+const parentDir = path.join(__dirname, '../../');
 
 function replaceSpecialCharacters(str) {
     return str.replace(/[^a-zA-Z0-9]+/g, "_");
@@ -75,6 +76,7 @@ async function bot_start() {
     //Historique
     const totalInvestment = data.historique.totalInvestment;
     const soldeFile = data.historique.soldeFile;
+    let fichier_historique = parentDir + "jsons/data/historiques/"+soldeFile
 
     let etiquette_bot = "\x1b[34m"+botName+": \x1b[0m ";
     
@@ -163,6 +165,20 @@ async function bot_start() {
     messageTelegram += pairList 
 
     messageTelegram += "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
+
+    let usdBalanceInit = await exchangeUtils.getBalance(exchange, data);
+    const roundedUsdBalanceInit = parseFloat(usdBalanceInit).toFixed(2); 
+    const dateInit = new Date();
+    const dateExecStringInit = dateInit.toLocaleDateString() + " " + dateInit.toLocaleTimeString();
+    if(isMysql == true){
+        mysql.addDataToWallet("wallet_"+sanitizedBotname, {
+            id: "",
+            montant: roundedUsdBalanceInit,
+            dateheure: dateExecStringInit,
+            etiquette_bot:etiquette_bot
+        });
+    }
+    let isBilanInit = await bilan.getBilan(data, roundedUsdBalanceInit, fichier_historique, etiquette_bot);
 
     telegram(messageTelegram);
     
@@ -533,18 +549,18 @@ async function bot_start() {
         let usdBalanceFinal = await exchangeUtils.getBalance(exchange, data);
         const roundedUsdBalanceFinal = parseFloat(usdBalanceFinal).toFixed(2); 
 
-        if(isMysql == false){
+        if(isMysql == true){
             mysql.addDataToWallet("wallet_"+sanitizedBotname, {
                 id: "",
-                montant: "${roundedUsdBalanceFinal}",
+                montant: roundedUsdBalanceFinal,
                 dateheure: dateExecString,
                 etiquette_bot:etiquette_bot
             });
         }
 
         // Partie Telegram 
-        const parentDir = path.join(__dirname, '../../');
-        let fichier_historique = parentDir + "jsons/data/historiques/"+soldeFile
+        
+        
  
         let isBilan = await bilan.getBilan(data, roundedUsdBalanceFinal, fichier_historique, etiquette_bot);
         if(notifBilanDePerformance === true){

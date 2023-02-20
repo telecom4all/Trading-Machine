@@ -92,7 +92,7 @@ on peu lancer autant de bot qu'on veut sur des timeframe différente avec des pa
 #### Page principal 
 la liste des bot que l'on a lancé que l'on peu supprimé 
 
-attention que le bot n'apparaitra qu'apres sa première execution donc si vous lancer un bot en time frame 1h a 11h15 vous ne verrai le bot qu'a partir de 12h 
+
 
 
 
