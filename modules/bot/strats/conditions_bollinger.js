@@ -29,7 +29,7 @@ async function open_long(row, config, indicatorsValues) {
     }
     else{
         if (debug_detail === true) {
-            logger.info(etiquette_bot + "Open Long true");
+            logger.info(etiquette_bot + "Open Long False");
         }  
         return false;
     }

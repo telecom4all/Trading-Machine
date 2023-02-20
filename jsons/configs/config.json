@@ -29,7 +29,7 @@
     }
   ],
   "parametres_generaux": {
-    "botname": "Bot_futures_Multi",
+    "botname": "Bollinger 1H Bitget",
     "botversion": "1",
     "delai_log": "5",
     "delai_interface": "20",
@@ -51,21 +51,21 @@
   },
   "parametre_strategie_generaux": {
     "stableCoin": "USDT",
-    "timeframe": "1m",
+    "timeframe": "1h",
     "nbOfCandles": "1000",
     "leverage": "1",
     "is_tp": true,
     "nb_tp": "1",
-    "tp_1": "0.05",
-    "tp_2": "0.1",
+    "tp_1": "0.12",
+    "tp_2": "0.26",
     "is_sl": true,
-    "sl": "0.5",
+    "sl": "0.05",
     "maxOpenPosition": "2",
     "type": "both"
   },
   "historique": {
     "totalInvestment": "20",
-    "soldeFile": "historiques-soldes-1.json"
+    "soldeFile": "bollinger_1h_bitget.json"
   },
   "timeFrames": [
     {

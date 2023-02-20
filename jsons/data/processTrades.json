@@ -1,1 +1,98 @@
-{}
+{
+  "330235": {
+    "processInfo": {
+      "pid": "330235",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "/home/angelz/Trading-Machine/modules/trades/monitor_price.js",
+        "1d",
+        "2.264",
+        "long",
+        "10",
+        "0.26",
+        "5",
+        "0.06",
+        "true",
+        "true",
+        "BAND/USDT",
+        "BITGET"
+      ],
+      "ppid": "329659"
+    },
+    "timeframe": "1d",
+    "price": " 2.264",
+    "position": "long",
+    "amount": "10",
+    "tp_percentage": "0.26",
+    "tp_amount": "5",
+    "sl_percentage": "0.06",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "BAND/USDT",
+    "date": "2023-02-20T18:22:30.965Z"
+  },
+  "330382": {
+    "processInfo": {
+      "pid": "330382",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "/home/angelz/Trading-Machine/modules/trades/monitor_price.js",
+        "4h",
+        "0.4015",
+        "long",
+        "10",
+        "0.52",
+        "5",
+        "0.08",
+        "true",
+        "true",
+        "XRP/USDT",
+        "BITGET"
+      ],
+      "ppid": "329659"
+    },
+    "timeframe": "4h",
+    "price": "0.4015",
+    "position": "long",
+    "amount": "10",
+    "tp_percentage": "0.52",
+    "tp_amount": "5",
+    "sl_percentage": "0.08",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "XRP/USDT",
+    "date": "2023-02-20T18:26:21.228Z"
+  },
+  "330442": {
+    "processInfo": {
+      "pid": "330442",
+      "command": "/usr/bin/node",
+      "arguments": [
+        "/home/angelz/Trading-Machine/modules/trades/monitor_price.js",
+        "1d",
+        "0.4015",
+        "long",
+        "10",
+        "0.52",
+        "5",
+        "0.08",
+        "true",
+        "true",
+        "XRP/USDT",
+        "BITGET"
+      ],
+      "ppid": "329659"
+    },
+    "timeframe": "1d",
+    "price": "0.4015",
+    "position": "long",
+    "amount": "10",
+    "tp_percentage": "0.52",
+    "tp_amount": "5",
+    "sl_percentage": "0.08",
+    "tp_switch": true,
+    "sl_switch": true,
+    "pair": "XRP/USDT",
+    "date": "2023-02-20T18:26:56.901Z"
+  }
+}

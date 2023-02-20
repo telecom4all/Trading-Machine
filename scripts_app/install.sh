@@ -183,18 +183,21 @@ echo ""
 
 
 cd ..
-path_machine = "$PWD"
+path_machine="$PWD"
 newjson_file="$PWD/scripts_app/config_secret.json"
 json_file="$PWD/jsons/configs/config_secret.json"
 if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
-    sed -i "s/\"sslKeyPath\"\s*:\s*\".*\"/\"sslKeyPath\": \"/etc/letsencrypt/live/$domain/privkey.pem\"/" $json_file
-    sed -i "s/\"sslCertPath\"\s*:\s*\".*\"/\"sslCertPath\": \"/etc/letsencrypt/live/$domain/fullchain.pem\"/" $json_file
+     sed -i "s#\"sslKeyPath\" : \".*\"#\"sslKeyPath\" : \"/etc/letsencrypt/live/$domaine/privkey.pem\"#" $json_file
+    sed -i "s#\"sslCertPath\": \".*\"#\"sslCertPath\": \"/etc/letsencrypt/live/$domaine/fullchain.pem\"#" $json_file
+
     
 fi
 sleep 2
 if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
-    jq --arg username "$username" --arg password "$password" --arg dbname "$dbname" '.mysql.user=$username | .mysql.password=$password | .mysql.database=$dbname' $json_file > $newjson_file
-    mv $newjson_file $json_file
+     sed -i "s#\"user\": \".*\"#\"user\": \"$username\"#" $json_file
+    sed -i "s#\"password\": \".*\"#\"password\": \"$password\"#" $json_file
+    sed -i "s#\"database\": \".*\"#\"database\": \"$dbname\"#" $json_file
+    sed -i "s#\"mysql_active\": \".*\"#\"mysql_active\": \"true\"#" $json_file
 fi
 
 cd scripts_app
@@ -257,7 +260,7 @@ if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
     echo -e "\e[33m* 'password' : '$password',                                                                            *\e[0m"
     echo -e "\e[33m* 'database' : '$dbname',                                                                              *\e[0m"
 
-    
+
 fi
 
 
@@ -270,3 +273,7 @@ echo -e "\e[33m*****************************************************************
 echo -e "\e[33m*                                                                                                      *\e[0m"
 echo -e "\e[33m********************************************************************************************************\e[0m"
 echo -e "\e[33m********************************************************************************************************\e[0m"
+
+cd ..
+npm install
+node TradingMachine.js
