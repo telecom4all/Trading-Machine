@@ -123,6 +123,18 @@ async function bot_start() {
         return; 
         }
     }
+    if(exchangeSelected === "BINANCE"){
+        exchangeUtils = require('../bot/exchanges/binance');
+        try {
+            exchange = exchangeUtils.initBinance(data, true);
+            if(debug == true){
+                logger.info(etiquette_bot + 'Binance initialisé avecsuccess');  
+            }
+        } catch (error) {
+        logger.error(etiquette_bot + error);
+        return; 
+        }
+    }
     // Fin choix de l'exchange 
 
     // Mysql 

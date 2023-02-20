@@ -206,8 +206,9 @@ const postRoutes = (app) => {
           
         }
         if(exchange == "binance"){
-
-          /* TODO */
+          exchangeUtils = require('../bot/exchanges/binance');
+          exchangeSelected = exchangeUtils.initBinance(config, "");
+          
         }
 
         let price = await exchangeUtils.getPriceToken(exchangeSelected, pair + ":" + config.parametre_strategie_generaux.stableCoin, config)

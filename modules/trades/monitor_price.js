@@ -210,9 +210,15 @@ async function monitor_price(timeframe, price, position, amount, tp_percentage, 
             return;
         }
     }
-    if(exchange == "binance"){
-
-        /* TODO */
+    if(exchange == "BINANCE"){
+        exchangeUtils = require('../bot/exchanges/binance');
+        try {
+            exchangeSelected = exchangeUtils.initBinance(config, "");   
+            logger.info(etiquette_bot + 'Binance initialisé avec success');  
+        } catch (error) {
+            logger.error(etiquette_bot + error);    
+            return;
+        }
     }
     
 
