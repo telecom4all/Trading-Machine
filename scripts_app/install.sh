@@ -101,6 +101,8 @@ if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
     read -p $'\e[35mEntrez le nom domaine du serveur: \e[0m' domaine
     read -p $'\e[35mEntrez une addresse email pour certbot: \e[0m' email
     
+    mkdir /etc/letsencrypt/live/$domaine/ -p
+
     certbot certonly --standalone --agree-tos --non-interactive --email $email -d $domaine
     # Lancer le renouvellement automatique de Certbot avec un service systemd
     sudo systemctl enable certbot.timer
@@ -274,6 +276,6 @@ echo -e "\e[33m*                                                                
 echo -e "\e[33m********************************************************************************************************\e[0m"
 echo -e "\e[33m********************************************************************************************************\e[0m"
 
-cd ..
+cd $path_machine
 npm install
 sudo node TradingMachine.js
