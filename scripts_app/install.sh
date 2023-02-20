@@ -38,6 +38,8 @@ else
     echo -e "\e[32mGit est déjà installé sur ce système\e[0m"
 fi
 
+sudo apt-get install jq -y
+
 git clone https://github.com/telecom4all/Trading-Machine.git
 cd Trading-Machine
 
@@ -55,7 +57,7 @@ if [ -f /etc/debian_version ]; then
     echo -e "\e[32mVersion de linux : $OS\e[0m"
     echo ""
     # mise a jour du systeme
-    $PKG_MANAGER update
+    sudo $PKG_MANAGER update
     #$PKG_MANAGER install -y snapd
     #snap install core
     #snap refresh core
@@ -74,7 +76,7 @@ else
     echo -e "\e[32mVersion de linux : $OS\e[0m"
     echo ""
     # mise a jour du systeme
-    $PKG_MANAGER update
+    sudo $PKG_MANAGER update
     #$PKG_MANAGER install -y snapd
     #snap install core
     #snap refresh core
@@ -86,15 +88,15 @@ if ! command -v node >/dev/null; then
     echo -e "\e[31mNode.js n'est pas installé.\e[0m"
     echo -e "\e[32mInstallation de nodejs ...\e[0m"
     curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-    $PKG_MANAGER update
-    $PKG_MANAGER install -y nodejs
+    sudo $PKG_MANAGER update
+    sudo $PKG_MANAGER install -y nodejs
 fi
 
 # Vérifier npm est installé  et installer si nécessaire
 if ! command -v npm >/dev/null; then
     echo -e "\e[31mNPM n'est pas installé.\e[0m"
     echo -e "\e[32mInstallation de NPM ...\e[0m"
-    $PKG_MANAGER install -y npm
+    sudo $PKG_MANAGER install -y npm
 fi
 
 # Vérifier si la version de Node.js est >= 18.12.1
@@ -118,7 +120,7 @@ fi
 
 
 
-npm install bcrypt
+npm install
 sudo npm install -g pm2
 
 
@@ -131,7 +133,7 @@ read -p $'\e[35mVoulez-vous installer CERTBOT pour le HTTPS (y/n)? \e[0m' answer
 if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
     if [ -f /etc/debian_version ]; then
         # Installer les dépendances pour Certbot
-        $PKG_MANAGER install -y snapd
+        sudo $PKG_MANAGER install -y snapd
         snap install core
         snap refresh core
         snap install --classic certbot
@@ -141,7 +143,7 @@ if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
         $PKG_MANAGER install -y certbot python2-certbot-apache
     else
         # Installer les dépendances pour Certbot
-        $PKG_MANAGER install -y snapd
+        sudo $PKG_MANAGER install -y snapd
         snap install core
         snap refresh core
         snap install --classic certbot
@@ -155,8 +157,8 @@ if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
     
     certbot certonly --standalone --agree-tos --non-interactive --email $email -d $domaine
     # Lancer le renouvellement automatique de Certbot avec un service systemd
-    systemctl enable certbot.timer
-    systemctl start certbot.timer
+    sudo systemctl enable certbot.timer
+    sudo systemctl start certbot.timer
     echo ""
     echo -e "\e[32mCertificat SSL généré avec succès et le renouvellement automatique est activé.\e[0m"
     echo ""
@@ -172,7 +174,7 @@ echo ""
 # Demande à l'utilisateur s'il veut installer MYSQL
 read -p $'\e[35mVoulez-vous installer le Serveur MYSQL (y/n)? \e[0m' answermysql
 if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
-    $PKG_MANAGER install mysql-server -y
+    sudo $PKG_MANAGER install mysql-server -y
 
     # Demande le nom d'utilisateur, le mot de passe et le nom de la base de données
     read -p $'\e[35mEntrez le nom de l utilisateur MySQL: \e[0m' username
@@ -217,7 +219,7 @@ if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
 MYSQL_SCRIPT
 
     # Vérifie la connexion à la base de données avec le nouvel utilisateur
-    mysql -u "$username" -p"$password" -e "use $dbname"
+    sudo mysql -u "$username" -p"$password" -e "use $dbname"
     if [ $? -eq 0 ]; then
         echo -e "\e[32mConnexion à la base de données réussie!\e[0m"
     else
@@ -315,3 +317,4 @@ else
 
     cd ..
 fi
+npm install
