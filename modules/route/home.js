@@ -13,7 +13,7 @@ const homeRoute = (app) => {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Bot MultiCoin MultiStrat</title>
+            <title>Dashbord Bots</title>
             <!-- Inclusion du fichier CSS -->
             <link rel="stylesheet" type="text/css" href="/style.css">
         </head>
