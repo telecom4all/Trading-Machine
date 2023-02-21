@@ -39,7 +39,7 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
     
 
 9. pour activer de demarage au boot
-     `pm2 startup` 
+     `sudo pm2 startup` 
 
 10. Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log -n api-service-staging`
 11. sauvegardez la configuration du nodes au démarage `pm2 save` si une erreur apparait essayé un `pm2 save --force`
