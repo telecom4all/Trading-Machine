@@ -6,10 +6,11 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
 
 1. Téléchargé le fichier d'installation `wget https://raw.githubusercontent.com/telecom4all/Trading-Machine/main/scripts_app/install.sh`
 2. executé l'installation `bash install.sh`
+3. a la fin de l'installation le not se lance et vous pouvez y acceder par le web via : http://<domaine> avec le mot de passe 123456
 
-3. Cryptez votre nouveau mot de passe en exécutant `node crypt_password.js` et modifier la valeur dansle fichier config_secret.json ainsi que "mysql_active": true si vous voulez mysql
+4. Cryptez votre nouveau mot de passe en exécutant `node crypt_password.js` et modifier la valeur dansle fichier config_secret.json ainsi que "mysql_active": true si vous voulez mysql
 
-4. ### Telegram
+5. ### Telegram
     je vous renvoie a ce lien pour créer votre bot télégram pour avoir votre token a mettre dans le fichier config_secret.json :
     
     https://medium.com/@robertbracco1/how-to-write-a-telegram-bot-to-send-messages-with-python-bcdf45d0a580
@@ -18,23 +19,23 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
       `@getidsbot`.
     puis cliquez sur "you" et vous verrai votre id a mettre dans le fichier config_secret.json
 
-5. ### double authentification
+6. ### double authentification
     pour la double authentification il faut mettre la variable `is2fa = true`  et il faut activé la double authentification sur votre compte gmail (je ne l'ai fait que pour gmail mais vous pouvez creer un compte gmail qui ne sert qu'a envoyé l'email vous pouvez comfigurer pour la reception du code le mail que vous voulez dans mail_destinataire ) je vous renvoie sur ce lien : 
 
     https://miracleio.me/snippets/use-gmail-with-nodemailer/
 
     modifier les informations pour le mail dans le fichier config-secret.json
     
-6.  ### HTTPS
+7.  ### HTTPS
     Si vous voulez activer HTTPS, modifiez `"isSSL": true` et ajoutez les valeurs reçues du fichier d'installation `"sslKeyPath" : "/etc/letsencrypt/live/xxxxxx/privkey.pem"` et `"sslCertPath": "/etc/letsencrypt/live/xxxxxx/fullchain.pem"`.
    
     Modifiez le fichier `Trading-Machine/jsons/configs/config_secret.json` avec les informations pour l'éxchange et pour HTTPS que le script d'installation a fourni, ainsi que votre nouveau mot de passe. 
     Le mot de passe par défaut est `123456`. 
     
     
-7.  Pour tester si tout va bien  `sudo node /home/<xxxxx>/Trading-Machine/TradingMachine.js`
+8.  Pour tester si tout va bien  `sudo node /home/<xxxxx>/Trading-Machine/TradingMachine.js`
     
-8.  Attention les port 80 et 443 sont des ports réserver parfois bloqué sur certain hébergeur pensais si c'est le cas a mettre des port au dessus de 3000
+9.  Attention les port 80 et 443 sont des ports réserver parfois bloqué sur certain hébergeur pensais si c'est le cas a mettre des port au dessus de 3000
     
 
 9. pour activer de demarage au boot
