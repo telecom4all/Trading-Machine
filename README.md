@@ -53,7 +53,9 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
     
 16. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
 
-
+17. normalement le script change les informations ssl et mysql automatiquement dans le fichier config_secret.json mais il faut activé manuellement en passant les valeur de mysql_active a true et de isSSL a true
+18. pour la double authentification pareil il faut passer la valeur de is2fa a true
+    
 ## Utilisation
 
 Une fois le noeud démarré, le bot de trading devrait fonctionner automatiquement. Vous pouvez également utiliser le bot en mode manuel.
