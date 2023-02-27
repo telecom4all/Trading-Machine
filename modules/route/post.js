@@ -97,20 +97,24 @@ const postRoutes = (app) => {
 
 
     app.post('/get_log', async (req, res) => {
-     let logFile = path.join(__dirname, '../../logs/pm2.log');
-      const logs = await utilities.readFile(logFile);
-      const logsStr = logs.toString('utf8');
-      if(logsStr == "false"){
-        res.send(false);
-      }
-      else{
-        let str = logsStr.replace(/\x1B\[31merror\x1B\[39m/g, '<span style="color: red;">error</span>');
-        let str2 = str.replace(/\x1B\[32minfo\x1B\[39m/g, '<span style="color: green;">info</span>');
-        let str3 = str2.replace(/\x1B\[\d+m(.*?): \x1B\[0m/g, (match, label) => `<span style="color: blue;">${label}</span>`);
-        let str4 = str3.replace(/\x1B\[38;2;255;165;0mTrade Manuel :\x1B\[0m/g, '<span style="color: rgb(255, 165, 0);"> Trade Manuel :</span>');
-        let str5 = str4.replace(/\n/g, '<br>');
-        res.send(str5);
-      }
+      let logFile = path.join(__dirname, '../../logs/pm2.log');
+       const logs = await utilities.readFile(logFile);
+       const logsStr = logs.toString('utf8');
+       if(logsStr == "false"){
+         res.send(false);
+       }
+       else{
+         let str = logsStr.replace(/\x1B\[31merror\x1B\[39m/g, '<span style="color: red;">error</span>');
+         let str2 = str.replace(/\x1B\[32minfo\x1B\[39m/g, '<span style="color: green;">info</span>');
+         let str3 = str2.replace(/\x1B\[35m(.*?)\x1B\[0m/g, (match, label) => `<span style="color: magenta;">${label}</span>`);
+         let str4 = str3.replace(/\x1B\[\d+m(.*?): \x1B\[0m/g, (match, label) => `<span style="color: blue;">${label}</span>`);
+         
+         let str5 = str4.replace(/\x1B\[38;2;255;165;0mTrade Manuel :\x1B\[0m/g, '<span style="color: rgb(255, 165, 0);"> Trade Manuel :</span>');
+         let str6 = str5.replace(/\n/g, '<br>');
+
+         //console.log(str6)
+         res.send(str6);
+       }
     });
 
 
