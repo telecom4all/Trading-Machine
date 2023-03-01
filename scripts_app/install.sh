@@ -128,61 +128,53 @@ if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
     read -p $'\e[35mEntrez le nom de l utilisateur MySQL: \e[0m' username
     read -p $'\e[35mEntrez le mot de passe de l utilisateur MySQL: \e[0m' password
     read -p $'\e[35mEntrez le nom de la base de données MySQL: \e[0m' dbname
-    
-    # Se connecte en tant que root
-    sudo mysql -u root <<MYSQL_SCRIPT
-    # Vérifie si l'utilisateur et la base de données existent
-    SELECT COUNT(*) FROM mysql.user WHERE User='$username' AND Host='localhost';
-    SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name = '$dbname';
-    
+
+    # Vérifie si l'utilisateur existe
+    user_exists=$(sudo mysql -u root -se "SELECT COUNT(*) FROM mysql.user WHERE User='$username' AND Host='localhost';")
+
+    # Vérifie si la base de données existe
+    db_exists=$(sudo mysql -u root -se "SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name = '$dbname';")
+
     # Si l'utilisateur et la base de données n'existent pas, on les crée avec tous les droits pour l'utilisateur
-    SET @userExists = FOUND_ROWS();
-    SET @dbNameExists = FOUND_ROWS();
-    IF (@userExists = 0 AND @dbNameExists = 0) THEN
-        CREATE USER '$username'@'localhost' IDENTIFIED BY '$password';
-        CREATE DATABASE $dbname;
-        GRANT ALL PRIVILEGES ON $dbname.* TO '$username'@'localhost';
-        FLUSH PRIVILEGES;
+    if [ "$user_exists" -eq 0 ] && [ "$db_exists" -eq 0 ]; then
+        sudo mysql -u root -e "CREATE USER '$username'@'localhost' IDENTIFIED BY '$password';"
+        sudo mysql -u root -e "CREATE DATABASE $dbname;"
+        sudo mysql -u root -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$username'@'localhost';"
+        sudo mysql -u root -e "FLUSH PRIVILEGES;"
         echo -e "\e[32mL'utilisateur et la base de données ont été créés avec succès.\e[0m"
-    
     # Si l'utilisateur existe mais que la base de données n'existe pas, on crée la base de données et on donne tous les droits à l'utilisateur
-    ELSEIF (@userExists > 0 AND @dbNameExists = 0) THEN
-        CREATE DATABASE $dbname;
-        GRANT ALL PRIVILEGES ON $dbname.* TO '$username'@'localhost';
-        FLUSH PRIVILEGES;
+    elif [ "$user_exists" -gt 0 ] && [ "$db_exists" -eq 0 ]; then
+        sudo mysql -u root -e "CREATE DATABASE $dbname;"
+        sudo mysql -u root -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$username'@'localhost';"
+        sudo mysql -u root -e "FLUSH PRIVILEGES;"
         echo -e "\e[32mLa base de données a été créée avec succès.\e[0m"
-    
     # Si la base de données existe mais que l'utilisateur n'existe pas, on crée l'utilisateur et on lui donne tous les droits sur la base de données
-    ELSEIF (@userExists = 0 AND @dbNameExists > 0) THEN
-        CREATE USER '$username'@'localhost' IDENTIFIED BY '$password';
-        GRANT ALL PRIVILEGES ON $dbname.* TO '$username'@'localhost';
-        FLUSH PRIVILEGES;
+    elif [ "$user_exists" -eq 0 ] && [ "$db_exists" -gt 0 ]; then
+        sudo mysql -u root -e "CREATE USER '$username'@'localhost' IDENTIFIED BY '$password';"
+        sudo mysql -u root -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$username'@'localhost';"
+        sudo mysql -u root -e "FLUSH PRIVILEGES;"
         echo -e "\e[32mL'utilisateur a été créé avec succès.\e[0m"
-    
     # Sinon, l'utilisateur et la base de données existent déjà
-    ELSE
-        echo -e "\e[33mL'utilisateur et la base de données existent déjà.\e[0m"
-    END IF;
-    
-MYSQL_SCRIPT
-
-    # Enregistre les informations de connexion dans un fichier
-    config_file=./mysql_config.cnf
-    echo "[client]" > "$config_file"
-    echo "user=$username" >> "$config_file"
-    echo "password=$password" >> "$config_file"
-    echo "database=$dbname" >> "$config_file"
-
-    # Vérifie la connexion à la base de données avec le nouvel utilisateur
-    sudo mysql --defaults-extra-file="$config_file" -e "use $dbname"
-    if [ $? -eq 0 ]; then
-        echo -e "\e[32mConnexion à la base de données réussie!\e[0m"
     else
-        echo -e "\e[31mErreur de connexion à la base de données.\e[0m"
+        echo -e "\e[33mL'utilisateur et la base de données existent déjà.\e[0m"
     fi
+    # Enregistre les informations de connexion dans un fichier
+        config_file=./mysql_config.cnf
+        echo "[client]" > "$config_file"
+        echo "user=$username" >> "$config_file"
+        echo "password=$password" >> "$config_file"
+        echo "database=$dbname" >> "$config_file"
 
-    # Supprime le fichier contenant les informations de connexion
-    rm "$config_file"
+        # Vérifie la connexion à la base de données avec le nouvel utilisateur
+        sudo mysql --defaults-extra-file="$config_file" -e "use $dbname"
+        if [ $? -eq 0 ]; then
+            echo -e "\e[32mConnexion à la base de données réussie!\e[0m"
+        else
+            echo -e "\e[31mErreur de connexion à la base de données.\e[0m"
+        fi
+
+        # Supprime le fichier contenant les informations de connexion
+        #rm "$config_file"
 
 
 fi
