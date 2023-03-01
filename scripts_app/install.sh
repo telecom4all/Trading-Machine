@@ -28,7 +28,7 @@ echo ""
 sudo dpkg --configure -a
 sudo apt-get update -y
 sudo apt-get upgrade -y 
-
+sudo mkdir /etc/letsencrypt/live/ -p
 echo -e "\e[34mINSTALLATION DES DEPENDANCES \e[0m"
 echo -e "\e[34m-----------------------------\e[0m"
 echo ""
