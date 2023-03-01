@@ -103,7 +103,7 @@ if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
     
     sudo mkdir /etc/letsencrypt/live/$domaine/ -p
     sudo chmod 777 /etc/letsencrypt/live/$domaine/
-    certbot certonly --standalone --agree-tos --non-interactive --email $email -d $domaine
+    sudo certbot certonly --standalone --agree-tos --non-interactive --email $email -d $domaine
     # Lancer le renouvellement automatique de Certbot avec un service systemd
     sudo systemctl enable certbot.timer
     sudo systemctl start certbot.timer
