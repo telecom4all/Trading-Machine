@@ -166,13 +166,24 @@ if [[ $answermysql == [Yy] || $answermysql == [Yy][Ee][Ss] ]]; then
     
 MYSQL_SCRIPT
 
+    # Enregistre les informations de connexion dans un fichier
+    config_file=./mysql_config.cnf
+    echo "[client]" > "$config_file"
+    echo "user=$username" >> "$config_file"
+    echo "password=$password" >> "$config_file"
+    echo "database=$dbname" >> "$config_file"
+
     # Vérifie la connexion à la base de données avec le nouvel utilisateur
-    sudo mysql -u "$username" -p"$password" -e "use $dbname"
+    sudo mysql --defaults-extra-file="$config_file" -e "use $dbname"
     if [ $? -eq 0 ]; then
         echo -e "\e[32mConnexion à la base de données réussie!\e[0m"
     else
         echo -e "\e[31mErreur de connexion à la base de données.\e[0m"
     fi
+
+    # Supprime le fichier contenant les informations de connexion
+    rm "$config_file"
+
 
 fi
     
