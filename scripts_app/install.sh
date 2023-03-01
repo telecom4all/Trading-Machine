@@ -90,9 +90,9 @@ read -p $'\e[35mVoulez-vous installer CERTBOT pour le HTTPS (y/n)? \e[0m' answer
 if [[ $answercertbot == [Yy] || $answercertbot == [Yy][Ee][Ss] ]]; then
     # Installer les dépendances pour Certbot
     sudo apt-get install -y snapd
-    snap install core
-    snap refresh core
-    snap install --classic certbot
+    sudo snap install core
+    sudo snap refresh core
+    sudo snap install --classic certbot
 
     echo ""
     echo -e "\e[32mGénération des certificats SSL\e[0m"
