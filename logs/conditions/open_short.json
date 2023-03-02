@@ -1,0 +1,122 @@
+{
+    "DOGE/USDT:USDT": {
+        "data": [
+            {
+                "dateStartString": "02/03/2023 22:52:05",
+                "close_n1": 0.080481,
+                "bbands_upper_n1": 0.08043647762349737,
+                "close": 0.080487,
+                "bbands_upper": 0.08043656373076519,
+                "calculBand": 0.0018783114013528244,
+                "long_ma": 0.08049565999999905,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": true
+            },
+            {
+                "dateStartString": "02/03/2023 22:53:04",
+                "close_n1": 0.080481,
+                "bbands_upper_n1": 0.08045276681000568,
+                "close": 0.080518,
+                "bbands_upper": 0.08045447206189359,
+                "calculBand": 0.001390957507434543,
+                "long_ma": 0.08049983999999909,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": false
+            }
+        ]
+    },
+    "LUNC/USDT:USDT": {
+        "data": [
+            {
+                "dateStartString": "02/03/2023 22:52:06",
+                "close_n1": 0.00016857,
+                "bbands_upper_n1": 0.00016787394418483662,
+                "close": 0.0001686,
+                "bbands_upper": 0.00016787154443112997,
+                "calculBand": 0.004900770243537819,
+                "long_ma": 0.00016834756000000137,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": false
+            },
+            {
+                "dateStartString": "02/03/2023 22:53:05",
+                "close_n1": 0.00016845,
+                "bbands_upper_n1": 0.0001678666754334779,
+                "close": 0.00016857,
+                "bbands_upper": 0.0001678663380687344,
+                "calculBand": 0.005340244755121239,
+                "long_ma": 0.0001683570000000018,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": false
+            }
+        ]
+    },
+    "LTC/USDT:USDT": {
+        "data": [
+            {
+                "dateStartString": "02/03/2023 22:52:07",
+                "close_n1": 95.23,
+                "bbands_upper_n1": 95.20747707867147,
+                "close": 95.22,
+                "bbands_upper": 95.20532751065151,
+                "calculBand": 0.0018868879647728136,
+                "long_ma": 95.24059999999987,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": true
+            },
+            {
+                "dateStartString": "02/03/2023 22:53:05",
+                "close_n1": 95.23,
+                "bbands_upper_n1": 95.2178996646064,
+                "close": 95.26,
+                "bbands_upper": 95.21751174434803,
+                "calculBand": 0.001573240654479157,
+                "long_ma": 95.24699999999987,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": false
+            }
+        ]
+    },
+    "AAVE/USDT:USDT": {
+        "data": [
+            {
+                "dateStartString": "02/03/2023 22:52:07",
+                "close_n1": 79.868,
+                "bbands_upper_n1": 79.82627661529713,
+                "close": 79.871,
+                "bbands_upper": 79.82715561761806,
+                "calculBand": 0.0018826729214746754,
+                "long_ma": 79.88264000000083,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": true
+            },
+            {
+                "dateStartString": "02/03/2023 22:53:06",
+                "close_n1": 79.859,
+                "bbands_upper_n1": 79.83064549382385,
+                "close": 79.858,
+                "bbands_upper": 79.83246865555029,
+                "calculBand": 0.001451184712782368,
+                "long_ma": 79.88478000000077,
+                "cond1": true,
+                "cond2": false,
+                "cond3": true,
+                "cond4": true
+            }
+        ]
+    }
+}
