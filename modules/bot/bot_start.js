@@ -12,7 +12,7 @@ const place_trade = require('../bot/bot_utilities/place_trade')
 const take_profit = require('../bot/bot_utilities/take_profit');
 const stop_loss = require('../bot/bot_utilities/stop_loss');
 const path = require('path');
-
+const utilities = require('../utilities');
 const parentDir = path.join(__dirname, '../../');
 
 function replaceSpecialCharacters(str) {
@@ -197,6 +197,8 @@ async function bot_start() {
     }
     
     
+    
+    
     // Planifiez la tâche cron
     cron.schedule(selectedTimeFrame.cronSyntax, async () => {
         messageTelegram = "*******************************************************";
@@ -297,7 +299,7 @@ async function bot_start() {
                     }
 
                     //Close Long
-                    if((position.side === "long") && (await conditions.close_long(lastRow, data, indicatorsValues) === true)){
+                    if((position.side === "long") && (await conditions.close_long(pair, lastRow, data, indicatorsValues) === true)){
 
                         let currentPrice = await exchangeUtils.getPriceToken(exchange, pair, data)
                         
@@ -340,7 +342,7 @@ async function bot_start() {
                         } 
                     }
                     //Close Short
-                    else if((position.side === "short") && (await conditions.close_short(lastRow, data, indicatorsValues) === true)){
+                    else if((position.side === "short") && (await conditions.close_short(pair, lastRow, data, indicatorsValues) === true)){
                         let currentPrice = await exchangeUtils.getPriceToken(exchange, pair, data)
                         let close_short_market_price = await exchangeUtils.convert_price_to_precision(exchange, pair, lastRow.close, data);
                         let close_short_quantity = await exchangeUtils.convert_amount_to_precision(exchange, pair, position.size, data)
@@ -400,7 +402,7 @@ async function bot_start() {
                     if(typeTrade == "both" || typeTrade == "long"){
                         
                         //console.log(conditions.open_long(lastRow, data, indicatorsValues))
-                        if(await conditions.open_long(lastRow, data, indicatorsValues) === true ){
+                        if(await conditions.open_long(pair, lastRow, data, indicatorsValues) === true ){
                             if(nbTotalOpenPositions < maxOpenPosition){
                                 let long_market_price = await exchangeUtils.convert_price_to_precision(exchange, pair, lastRow.close, data);
                                 let currentPrice = await exchangeUtils.getPriceToken(exchange, pair, data)
@@ -476,7 +478,7 @@ async function bot_start() {
                         }
                     }
                     if(typeTrade == "both" || typeTrade == "short"){
-                        if(await conditions.open_short(lastRow, data, indicatorsValues) === true ){
+                        if(await conditions.open_short(pair, lastRow, data, indicatorsValues) === true ){
                             if(nbTotalOpenPositions < maxOpenPosition){
                                 let currentPrice = await exchangeUtils.getPriceToken(exchange, pair, data)
                                 let short_market_price = await exchangeUtils.convert_price_to_precision(exchange, pair, lastRow.close, data);
@@ -610,6 +612,9 @@ async function bot_start() {
         logger.info("--------------------------------------------------");
         logger.info("--------------------------------------------------");
 
+        if(debug_detail == true){
+            utilities.resumeLogsConditions();
+        }
         
     });
    
