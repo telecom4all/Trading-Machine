@@ -125,12 +125,6 @@ ou en cryptos :
 - BNB (Réseau BSC BEP20) --> 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236
 - SOL --> AsLvBCG1fpmpaueTYBmU5JN5QKVkt9a1dLR44BAGUZbV
 
-# Remerciements
-Merci à titouannwtt pour son code duquel je me suis grandement inspiré !! si vous voulez le soutenir c'est par là -->
-
-https://github.com/titouannwtt/bot-trading-advanced
-
-
 
 
 <img src="public/img/DashBoard_1.png" alt="Dashboard 1" style="max-width: 500px;">
