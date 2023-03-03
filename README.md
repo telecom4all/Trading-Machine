@@ -45,6 +45,7 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
 11. sauvegardez la configuration du nodes au démarage `sudo pm2 save` si une erreur apparait essayé un `sudo pm2 save --force`
 12. pour activé et démarer le service
      `sudo systemctl enable pm2-root.service`
+     
      `sudo systemctl start pm2-root.service`
 13. tester si le service tourne  
          `sudo systemctl status pm2-root.service`
