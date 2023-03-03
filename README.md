@@ -111,8 +111,12 @@ on peu lancer autant de bot qu'on veut sur des timeframe différente avec des pa
 #### Page principal 
 la liste des bot que l'on a lancé que l'on peu supprimé 
 
+#### Page DEFI (snipe)
+todo
 
 
-
-
-
+<img src="public/img/DashBoard_1.png" alt="Dashboard 1" style="max-width: 500px;">
+<img src="public/img/DashBoard_2.png" alt="Dashboard 2" style="max-width: 500px;">
+<img src="public/img/DashBoard_3.png" alt="Dashboard 3" style="max-width: 500px;">
+<img src="public/img/ConfigBot.png" alt="Configuration Bot Trading" style="max-width: 500px;">
+<img src="public/img/Place_Trade.png" alt="Place Trade Manuel" style="max-width: 500px;">
