@@ -115,6 +115,24 @@ la liste des bot que l'on a lancé que l'on peu supprimé
 todo
 
 
+# Soutien
+Ce code est disponible pour tous si vous voulez me "soutenir :-)" voici un lien d'affiliation Bitget : https://partner.bitget.com/bg/85MZE2
+
+ou en cryptos :
+- BTC --> 1CetuWt9PuppZ338MzBzQZSvtMW3NnpjMr
+- ETH (Réseau ERC20) --> 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236
+- MATIC (Réseau Polygon) --> 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236
+- BNB (Réseau BSC BEP20) --> 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236
+- SOL --> AsLvBCG1fpmpaueTYBmU5JN5QKVkt9a1dLR44BAGUZbV
+
+# Remerciements
+Merci à titouannwtt pour son code duquel je me suis grandement inspiré !! si vous voulez le soutenir c'est par là -->
+
+https://github.com/titouannwtt/bot-trading-advanced
+
+
+
+
 <img src="public/img/DashBoard_1.png" alt="Dashboard 1" style="max-width: 500px;">
 <img src="public/img/DashBoard_2.png" alt="Dashboard 2" style="max-width: 500px;">
 <img src="public/img/DashBoard_3.png" alt="Dashboard 3" style="max-width: 500px;">
