@@ -102,9 +102,25 @@ ces parametre ci sont par contre pour l'interface :
 Délai retour logs: 
 Délai refresh page: 
 Délai refresh price:
+
+
+'''
+qui sont les delai de rafrachissement des infos sur l'interface 
+
+
+si debug_details est a true il y aura des fichiers dans logs/conditions
+ - logs/conditions/close_long.json 
+ - logs/conditions/close_short.json
+ - logs/conditions/open_long.json
+ - logs/conditions/open_short.json
+  
+et un résumé formaté sous forme de tableau :
+'''
+    logs/conditions_logs.log
 '''
 
-qui sont les delai de rafrachissement des infos sur l'interface 
+pensez a vider de temps les fichiers dans le repertoire logs/conditions en ne laissant qu'un json vide {}
+
 
 on peu lancer autant de bot qu'on veut sur des timeframe différente avec des parametre différents
 
