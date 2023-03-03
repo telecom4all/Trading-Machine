@@ -47,7 +47,7 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
     `sudo pm2 set pm2-logrotate:max_size 10M`
      
      
-10.  Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log --max-memory-restart 1000M --log-date-format "YYYY-MM-DD HH:mm:ss Z" --max-size 10M -n api-service-staging`
+10.  Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log --max-memory-restart 1000M --log-date-format "YYYY-MM-DD HH:mm:ss Z"  -n api-service-staging`
    
 11. pour activer de demarage au boot
      `sudo pm2 startup` 
