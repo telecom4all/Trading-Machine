@@ -35,31 +35,46 @@ Ce projet est un bot de trading qui peut également être utilisé en mode manue
     
 8.  Pour tester si tout va bien  `sudo node /home/<xxxxx>/Trading-Machine/TradingMachine.js`
     
-9.  Attention les port 80 et 443 sont des ports réserver parfois bloqué sur certain hébergeur pensais si c'est le cas a mettre des port au dessus de 3000
+     Attention les port 80 et 443 sont des ports réserver (c'est pour ca qu'on lance le node avec sudo pour évité le sudo il faut regarder les droits de l'utilisateur qui lance le node) parfois bloqué sur certain hébergeur pensais si c'est le cas a mettre des port au dessus de 3000
     
 
-9. pour activer de demarage au boot
+9. pour activé le log rotate : 
+     
+    `sudo pm2 install pm2-logrotate`
+
+     puis spécifier la taille du fichier log ici 10M 
+
+    `sudo pm2 set pm2-logrotate:max_size 10M`
+     
+     
+10.  Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log --max-memory-restart 1000M --log-date-format "YYYY-MM-DD HH:mm:ss Z" --max-size 10M -n api-service-staging`
+   
+11. pour activer de demarage au boot
      `sudo pm2 startup` 
-sudo pm2 start /home/angelz/Trading-Machine/TradingMachine.js --name "Bots" --log /home/angelz/Trading-Machine/logs/pm2.log --max-memory-restart 100M --log-date-format "YYYY-MM-DD HH:mm:ss Z" --max-size 10M -n api-service-staging
-10. Pour démarrer le noeud, exécutez `sudo pm2 start /home/<xxxxx>/Trading-Machine/TradingMachine.js --name "Bots" --log /home/<xxxxx>/Trading-Machine/logs/pm2.log --max-memory-restart 100M --log-date-format "YYYY-MM-DD HH:mm:ss Z" --max-size 10M -n api-service-staging`
-11. sauvegardez la configuration du nodes au démarage `sudo pm2 save` si une erreur apparait essayé un `sudo pm2 save --force`
-12. pour activé et démarer le service
+
+12. sauvegardez la configuration du nodes au démarage `sudo pm2 save` si une erreur apparait essayé un `sudo pm2 save --force`
+    
+13. pour activé et démarer le service
      `sudo systemctl enable pm2-root.service`
      
      puis
 
      `sudo systemctl start pm2-root.service`
 
-13. tester si le service tourne  
+14. tester si le service tourne  
          `sudo systemctl status pm2-root.service`
 
-14. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
-15. Pour forcer la sauvegarde du noeud, exécutez `pm2 save --force`
+15. Pour redémarrer le noeud, exécutez `sudo pm2 restart 0`
     
-16. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
+16. Pour forcer la sauvegarde du noeud, exécutez `sudo pm2 save --force`
+    
+17. pour supprimer le node :  `sudo pm2 delete 0` ou 0 est l'id du nodte trouvé grace a  `sudo pm2 list`
+    
+18. Toujours redémarrer le noeud après toute modification dans les fichiers `config.json` et `config_secret.json` en exécutant `sudo pm2 restart 0`.
 
-17. normalement le script change les informations ssl et mysql automatiquement dans le fichier config_secret.json mais il faut activé manuellement en passant les valeur de mysql_active a true et de isSSL a true
-18. pour la double authentification pareil il faut passer la valeur de is2fa a true
+19. normalement le script change les informations ssl et mysql automatiquement dans le fichier config_secret.json mais il faut activé manuellement en passant les valeur de mysql_active a true et de isSSL a true
+    
+20. pour la double authentification pareil il faut passer la valeur de is2fa a true
     
 ## Utilisation
 
