@@ -12,7 +12,7 @@ const place_trade = require('../bot/bot_utilities/place_trade')
 const take_profit = require('../bot/bot_utilities/take_profit');
 const stop_loss = require('../bot/bot_utilities/stop_loss');
 const path = require('path');
-const utilities = require('../utilities');
+
 const parentDir = path.join(__dirname, '../../');
 
 function replaceSpecialCharacters(str) {
@@ -192,10 +192,7 @@ async function bot_start() {
     }
     let isBilanInit = await bilan.getBilan(data, roundedUsdBalanceInit, fichier_historique, etiquette_bot);
 
-    if(telegram_on == true){
-        telegram(messageTelegram);
-    }
-    
+    telegram(messageTelegram);
     
     
     
@@ -221,19 +218,21 @@ async function bot_start() {
         logger.info(etiquette_bot + "Balance Wallet: " + balanceWallet + " " + stableCoin);  
 
         //Get Data Exchange 
-        var isMarketLoaded = await exchangeUtils.loadMarkets(exchange, data)
+      /*  var isMarketLoaded = await exchangeUtils.loadMarkets(exchange, data)
         if(isMarketLoaded == true){
             logger.info(etiquette_bot + "Marché Chargé")
         }
         else{
             logger.error(etiquette_bot + isMarketLoaded);
         }
-            
+           */ 
         // Chargement des donnée de l'exchange     
         logger.info(etiquette_bot + "Collecte des Data de l'exchange");                 
         let dfList = await exchangeUtils.getDataExchange(pairList, exchange, data)
         
 
+      
+        
         // Collecte des indicateurs 
         
         logger.info(etiquette_bot + "Collecte des indicateurs");  
@@ -250,9 +249,22 @@ async function bot_start() {
         
         }
         
+       /* for (const symbol in dfList) {
+            console.log("****************************")
+            console.log(symbol)
+              for (let i = 0; i < dfList[symbol].length; i++) {
+                  let item = dfList[symbol][i];
+                  console.log(item)
+                  
+              }
+            console.log("****************************")
+          }*/
         //==================================================
         //          EXECUTION PRINCIPALE DU BOT : 
         //=================================================
+
+
+
         if(telegram_on == true){
             messageTelegram += "\nActions prises par le bot :\n\n";
         }
@@ -282,6 +294,7 @@ async function bot_start() {
                 if( stratSelected == "BOLLINGER"){
                     lastRow = await row.getRowDfListBollinger(dfList[coin], -2, data);
                     conditions = require('../bot/strats/conditions_bollinger');
+                    
                 }
 
                 if (debug_detail === true) {
@@ -612,9 +625,6 @@ async function bot_start() {
         logger.info("--------------------------------------------------");
         logger.info("--------------------------------------------------");
 
-        if(debug_detail == true){
-            utilities.resumeLogsConditions();
-        }
         
     });
    

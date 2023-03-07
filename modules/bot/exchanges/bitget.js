@@ -30,7 +30,7 @@ function initBitget(config, start) {
            logger.info(etiquette_bot + "CCXT Version : " + ccxt.version); 
         }
         
-        return new ccxt.bitget({
+        let exchange = new ccxt.bitget({
             apiKey: configSecret.bitget.apiKey,
             secret: configSecret.bitget.secret,
             password: configSecret.bitget.password,
@@ -38,6 +38,16 @@ function initBitget(config, start) {
                 defaultType: 'swap'
             }
         });
+        exchange.enableRateLimit = true
+        // enable either of the following two lines
+        exchange.options['warnOnFetchOHLCVLimitArgument'] = false
+
+       // exchange.options['tradesLimit'] = 5000
+      //  exchange.options['OHLCVLimit'] = 5000
+      //  exchange.options['ordersLimit'] = 5000
+
+
+        return exchange;
     } catch (error) {
         logger.error(etiquette_bot + 'Erreur: ' + error);
         return "error";
@@ -76,52 +86,97 @@ async function loadMarkets(currentExchange, botName) {
 }
 
 
+function get_timeframe_in_millis(timeframe) {
+    const timeframes = require('../../config').timeFrames
+    const result = timeframes.find((t) => t.abbreviation === timeframe);
+    if (!result) {
+      throw new Error(`Invalid timeframe abbreviation: ${timeframe}`);
+    }
+    return result.interval;
+  }
+
 async function getMoreLastHistoricalAsync(exchange, symbol, timeframe, limit, config) {
-    const maxThreads = 4;
-    const poolSize = Math.ceil(limit / 100);
     const botName = config.parametres_generaux.botname;
     let etiquette_bot = "\x1b[34m"+botName+": \x1b[0m ";
    
-        let fullResult = [];
+    const maxLimit = 1000; // Nombre maximum de bougies que l'on peut récupérer en une seule requête
+    const interval = get_timeframe_in_millis(timeframe)
+    const fetchLimit = Math.min(limit, maxLimit); // Le nombre de bougies à récupérer par requête
+    let remainingLimit = limit; // Le nombre de bougies restant à récupérer
+    let latestTimestamp = Date.now(); // Le timestamp de la bougie la plus récente récupérée
+
+    const dataExchange = []; // Initialisation du tableau qui stockera toutes les données récupérées
     
-        async function worker(i) {
-            try {
-                let timestamp = Math.round(Date.now() / 1000) - (i * 1000 * 60 * 60);
-                await sleep(exchange.rateLimit);
-                let dataWorker = await exchange.fetchOHLCV(symbol, timeframe);
-                dataWorker.forEach(data => {
-                    data[6] = new Date(data[0]).toLocaleString();
-                });
-                return dataWorker;
-            } catch (err) {
-                logger.error(etiquette_bot + 'Error on last historical for ' + symbol + " : " + err);
-            }
-        }
     
-        const pool = [];
-        for (let i = 0; i < poolSize; i++) {
-            pool.push(worker(i));
-        }
-    
-        fullResult = await Promise.all(pool);
-        fullResult = fullResult.filter(value => value !== undefined);
-        fullResult = fullResult.reduce((acc, cur) => acc.concat(cur), []);
-    
-        fullResult.sort((a, b) => a[0] - b[0]);
+    for (let i = limit; i > 0; i -= 100) { // Boucle pour récupérer toutes les données, de 100 en 100
+        const since = latestTimestamp - (100 * interval);
+
+        const sinceTimestamp = new Date(since);
+        const formatted_datesince = `${sinceTimestamp.getDate().toString().padStart(2, '0')}/${(sinceTimestamp.getMonth() + 1).toString().padStart(2, '0')}/${sinceTimestamp.getFullYear()}-${sinceTimestamp.getHours().toString().padStart(2, '0')}:${sinceTimestamp.getMinutes().toString().padStart(2, '0')}:${sinceTimestamp.getSeconds().toString().padStart(2, '0')}`;
         
-        const data = new DataFrame(fullResult, ['timestamp', 'open', 'high', 'low', 'close', 'volume', 'datetime']);
+        const result = await exchange.fetchOHLCV(
+            symbol, timeframe, since, 100 
+          );
+          const lastTimestamp = result.pop()[0];
+          const firstTimestamp = result.shift()[0];
+          
+          const datelastTimestamp = new Date(lastTimestamp);
+          const formatted_datelastTimestamp = `${datelastTimestamp.getDate().toString().padStart(2, '0')}/${(datelastTimestamp.getMonth() + 1).toString().padStart(2, '0')}/${datelastTimestamp.getFullYear()}-${datelastTimestamp.getHours().toString().padStart(2, '0')}:${datelastTimestamp.getMinutes().toString().padStart(2, '0')}:${datelastTimestamp.getSeconds().toString().padStart(2, '0')}`;
+        
+          const datefirstTimestamp = new Date(firstTimestamp);
+          const formatted_datefirstTimestamp = `${datefirstTimestamp.getDate().toString().padStart(2, '0')}/${(datefirstTimestamp.getMonth() + 1).toString().padStart(2, '0')}/${datefirstTimestamp.getFullYear()}-${datefirstTimestamp.getHours().toString().padStart(2, '0')}:${datefirstTimestamp.getMinutes().toString().padStart(2, '0')}:${datefirstTimestamp.getSeconds().toString().padStart(2, '0')}`;
+  
+          // Ajout des données récupérées dans le tableau full_result
+          dataExchange.push(result);
+  
+          latestTimestamp = firstTimestamp;
+
      
-        if (data.empty) {
-            logger.error(etiquette_bot + 'Data frame is empty');
-            return null;
-        }
+    }
+  
+    let dataFiltrer = [];
+    for (const tableau in dataExchange) {
+       
         
-        let nouveaux_noms = ['timestamp', 'open', 'high', 'low', 'close', 'volume', 'datetime'];
-        data.columns = nouveaux_noms;
+          for (let i = 0; i < dataExchange[tableau].length; i++) {
+           // console.log("****************************")
+              let item = dataExchange[tableau][i];
+              //console.log(item)
+              dataFiltrer.push(item)
+            //  console.log("****************************")
+          }
         
-        return data;
-   
-}
+      }
+    const result = dataFiltrer.map((data, index, array) => {
+      const date = new Date(data[0]);
+      const formatted_date = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}-${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+      
+      return {
+        timestamp: data[0],
+        date: formatted_date,
+        open: data[1],
+        high: data[2],
+        low: data[3],
+        close: data[4],
+        volume: data[5],
+        open_n1: (index > 0) ? array[index-1][1] : null,
+        high_n1: (index > 0) ? array[index-1][2] : null,
+        low_n1: (index > 0) ? array[index-1][3] : null,
+        close_n1: (index > 0) ? array[index-1][4] : null,
+        volume_n1: (index > 0) ? array[index-1][5] : null,
+        open_n2: (index > 1) ? array[index-2][1] : null,
+        high_n2: (index > 1) ? array[index-2][2] : null,
+        low_n2: (index > 1) ? array[index-2][3] : null,
+        close_n2: (index > 1) ? array[index-2][4] : null,
+        volume_n2: (index > 1) ? array[index-2][5] : null
+      };
+    });
+
+    // Tri des données par timestamp
+    result.sort((a, b) => a.timestamp - b.timestamp);
+    // Retourner l'objet JSON contenant les données triées
+    return result;
+  }
 
 
 
