@@ -3,6 +3,32 @@ const fs = require('fs');
 const path = require('path');
 
 
+
+
+
+async function update_config_interface_bot_json_file(newData) {
+  
+  try {
+    const configFile = path.join(__dirname, '../jsons/configs/config_interface.json');
+    
+    const data = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
+    
+    data.parametres_generaux = newData.parametres_generaux;
+   
+    fs.writeFile(configFile, JSON.stringify(data, null, 2), (err) => {
+      if (err) {
+       return err; 
+      }
+      //console.log('File has been saved successfully.');
+      return data;
+    });
+     
+  } catch (err) {
+      return err.message
+  }
+}
+
+
 async function update_config_bot_json_file(newData) {
     try {
         const configFile = path.join(__dirname, '../jsons/configs/config.json');
@@ -287,4 +313,4 @@ async function resumeLogsConditions(){
 
 
 
-module.exports = { update_config_bot_json_file, readFile, replaceSpecialCharacters, writeFile, update_json_file_trade , logConditions, resumeLogsConditions};
+module.exports = { update_config_bot_json_file, readFile, replaceSpecialCharacters, writeFile, update_json_file_trade , logConditions, resumeLogsConditions, update_config_interface_bot_json_file};

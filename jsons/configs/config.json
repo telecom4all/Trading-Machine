@@ -1,12 +1,4 @@
 {
-  "exchanges": [
-    {
-      "name": "BITGET"
-    },
-    {
-      "name": "BINANCE"
-    }
-  ],
   "strategies": [
     {
       "name": "BOLLINGER",
@@ -14,7 +6,7 @@
       "bol_std_bollinger": "2.25",
       "min_bol_spread_bollinger": "0",
       "long_ma_window_bollinger": "500",
-      "pair_list": "DOGE,LUNC,LTC,AAVE"
+      "pair_list": "BTC,ETH,BNB,LTC,DOGE,XRP,SOL,AVAX,MATIC,TRX,FTM,AAVE,SUSHI,BCH,ETC,LINK,EOS,UNI,COMP,LUNC,1INCH"
     },
     {
       "name": "RANGE_1",
@@ -31,14 +23,11 @@
   "parametres_generaux": {
     "botname": "Bollinger 1H Bitget",
     "botversion": "1",
-    "delai_log": "5",
-    "delai_interface": "20",
-    "delai_price": "5",
     "production": true,
     "debug": true,
     "debug_detail": true,
     "strat_active": "BOLLINGER",
-    "exchange_active": "BITGET",
+    "exchange_active": "Bitget_1",
     "delay_coin": "1",
     "mysql": true
   },
@@ -64,8 +53,7 @@
     "type": "both"
   },
   "historique": {
-    "totalInvestment": "20",
-    "soldeFile": "bollinger_1h_bitget.json"
+    "totalInvestment": "20"
   },
   "timeFrames": [
     {

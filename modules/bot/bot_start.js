@@ -75,6 +75,12 @@ async function bot_start() {
 
     //Historique
     const totalInvestment = data.historique.totalInvestment;
+    //const soldeFile = data.historique.soldeFile;
+
+
+    const sanitizedBotname = replaceSpecialCharacters(botName);
+
+    data.historique.soldeFile = sanitizedBotname + ".json"
     const soldeFile = data.historique.soldeFile;
     let fichier_historique = parentDir + "jsons/data/historiques/"+soldeFile
 
@@ -87,7 +93,7 @@ async function bot_start() {
     let mysql;
     let pairList;
 
-    const sanitizedBotname = replaceSpecialCharacters(botName);
+   
 
     // Rechercher l'intervalle de temps correspondant à la période sélectionnée
     const selectedTimeFrame = config_bots.timeFrames.find(tf => tf.abbreviation === timeframeBot);
@@ -101,7 +107,7 @@ async function bot_start() {
     let isRecordNewProcess = await processBot.newBotProcess(data, pid, dateStartString)
   
 
-
+ 
 
 
 

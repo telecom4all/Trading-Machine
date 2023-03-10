@@ -2,11 +2,18 @@ const checkAuth = require('../auth');
 const config = require('../config');
 const configSecret = require('../config_secret');
 
+const fs = require('fs');
+const path = require('path');
+
+
 const placeTradeRoute = (app) => {
   app.get('/place_trade', checkAuth, (req, res) => {
     res.set('Cache-Control', 'no-store');
     res.set('Pragma', 'no-cache');
     
+    let configFile = path.join(__dirname, '../../jsons/configs/config_interface.json');
+    let configInterface = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
+
     let listExchanges;
     for (const exchange of configSecret.exchanges) {
         listExchanges += '<option value="' + exchange.name + '" ' + (exchange.name === config.parametres_generaux.exchange_active ? 'selected' : '') + '>' + exchange.name + '</option>';
@@ -22,9 +29,9 @@ const placeTradeRoute = (app) => {
     <body>
         <nav>
         <a href="/">Page principale</a>
-        <a href="/configuration">Configuration</a>
+        <a href="/configuration">Configuration Bot</a>
+        <a href="/configuration_interface">Configuration Interface</a>
         <a href="/place_trade">Trade Manuel</a>
-        <a href="/defi">DEFI</a>
         <a href="/deconnection" class="logout-link">Deconnection</a>
         </nav>
         <h1>Trade Manuel</h1>
@@ -119,15 +126,15 @@ const placeTradeRoute = (app) => {
         <script>
             setInterval(function() {
                 getListProcess();   
-            }, ${config.parametres_generaux.delai_interface*1000});
+            }, ${configInterface.parametres_generaux.delai_interface*1000});
 
             setInterval(function() {
                 get_price();
-            }, ${config.parametres_generaux.delai_price*1000});
+            }, ${configInterface.parametres_generaux.delai_price*1000});
 
             setInterval(function() {
                 get_log_bots();
-            }, ${config.parametres_generaux.delai_log*1000});
+            }, ${configInterface.parametres_generaux.delai_log*1000});
 
             
         </script>

@@ -16,7 +16,15 @@ const postRoutes = (app) => {
   
   
   
-
+    app.post('/save_config_interface', checkAuth, async (req, res) => {
+      try {
+        
+          var update_file = await utilities.update_config_interface_bot_json_file(req.body )
+          res.send({status: true, message: update_file});
+      } catch (err) {
+          res.send({status: false, message: err.message});
+      }
+    });
     app.post('/save_config', checkAuth, async (req, res) => {
       try {
           var update_file = await utilities.update_config_bot_json_file(req.body )

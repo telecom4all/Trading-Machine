@@ -1,11 +1,16 @@
 const checkAuth = require('../auth');
-const config = require('../config');
 const configSecret = require('../config_secret');
+
+const fs = require('fs');
+const path = require('path');
 
 const configurationRoute = (app) => {
   app.get('/configuration', checkAuth, (req, res) => {
     res.set('Cache-Control', 'no-store');
     res.set('Pragma', 'no-cache');
+
+    let configFile = path.join(__dirname, '../../jsons/configs/config.json');
+    let config = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
 
     let strategiesHTML = '';
     for (const strategy of config.strategies) {
@@ -13,7 +18,13 @@ const configurationRoute = (app) => {
                 <h3>${strategy.name}</h3>
             `;
             for (const key in strategy) {
-                strategiesHTML += `<div>${key}: <input id="${key}" class="input_select strategie" type="text" data-stratname="${strategy.name}" value="${strategy[key]}" /></div>`;
+                if(key == "name"){
+                    strategiesHTML += `<div>${key}: <input id="${key}" class="input_select strategie" style="color:white" type="text" data-stratname="${strategy.name}" value="${strategy[key]}" disabled /></div>`;
+                }
+                else{
+                    strategiesHTML += `<div>${key}: <input id="${key}" class="input_select strategie" type="text" data-stratname="${strategy.name}" value="${strategy[key]}" /></div>`;
+                }
+                                
             }
         strategiesHTML += '</div>';
     }
@@ -22,9 +33,6 @@ const configurationRoute = (app) => {
     let generalHTML = '<div>';
         generalHTML += '<div>Nom du Bot: <input id="botname" type="text" class="input_select" value="'+config.parametres_generaux.botname+'" /></div>';
         generalHTML += '<div>Version Bot: <input id="botversion" type="text" class="input_select" value="'+config.parametres_generaux.botversion+'" /></div>';
-        generalHTML += '<div>Délai retour logs: <input id="delai_log" class="input_select" type="text" value="'+config.parametres_generaux.delai_log+'" /> Sec</div>';
-        generalHTML += '<div>Délai refresh page: <input id="delai_interface" class="input_select" type="text" value="'+config.parametres_generaux.delai_interface+'" /> Sec</div>';
-        generalHTML += '<div>Délai refresh price: <input id="delai_price" class="input_select" type="text" value="'+config.parametres_generaux.delai_price+'" /> Sec</div>';
         generalHTML += '<div>Production: <input id="production" class="input_select" type="checkbox" value="'+config.parametres_generaux.production+'" ' + (config.parametres_generaux.production ? 'checked' : '') + ' /></div>';
         generalHTML += '<div>Debug : <input id="debug" class="input_select" type="checkbox" value="'+config.parametres_generaux.debug+'" ' + (config.parametres_generaux.debug ? 'checked' : '') + ' /></div>';
         generalHTML += '<div>Debug Détail: <input id="debug_detail" class="input_select" type="checkbox" value="'+config.parametres_generaux.debug_detail+'" ' + (config.parametres_generaux.debug_detail ? 'checked' : '') + ' /></div>';
@@ -45,13 +53,7 @@ const configurationRoute = (app) => {
         
     generalHTML += '</div>';
 
-    let telegramHTML = '<div>';
-        telegramHTML += '<div>Telegram Activé: <input id="telegram_on" class="input_select" type="checkbox" value="'+config.retour_telegram.telegram_on+'" ' + (config.retour_telegram.telegram_on ? 'checked' : '') + ' /></div>';
-        telegramHTML += '<div>Notif Télégram pour tout: <input id="alwaysNotifTelegram" class="input_select" type="checkbox" value="'+config.retour_telegram.alwaysNotifTelegram+'" ' + (config.retour_telegram.notifTelegramOnChangeOnly ? 'checked' : '') + ' /></div>';
-        telegramHTML += '<div>Notif Télégram si changement: <input id="notifTelegramOnChangeOnly" class="input_select" type="checkbox" value="'+config.retour_telegram.notifTelegramOnChangeOnly+'" ' + (config.retour_telegram.notifTelegramOnChangeOnly ? 'checked' : '') + ' /></div>';
-        telegramHTML += '<div>Notif Télégram avec bilan de performance: <input id="notifBilanDePerformance" class="input_select" type="checkbox" value="'+config.retour_telegram.notifBilanDePerformance+'" ' + (config.retour_telegram.notifBilanDePerformance ? 'checked' : '') + ' /></div>';
-        telegramHTML += '<div>Notif Télégram avec bilan de l\'évolution: <input id="notifBilanEvolutionContinue" class="input_select" type="checkbox" value="'+config.retour_telegram.notifBilanEvolutionContinue+'" ' + (config.retour_telegram.notifBilanEvolutionContinue ? 'checked' : '') + ' /></div>';
-    telegramHTML += '</div>';
+    
 
     let stratGeneralHTML = '<div>';
         stratGeneralHTML += '<div>Stable Coin: <input id="stableCoin" type="text" class="input_select" value="'+config.parametre_strategie_generaux.stableCoin+'" /></div>';
@@ -64,7 +66,7 @@ const configurationRoute = (app) => {
             selected = "selected";
         }
         stratGeneralHTML += '<option value="' + config.timeFrames[i].abbreviation + '" ' + selected + '>' + config.timeFrames[i].name + '</option>';
-        }
+        } 
 
         stratGeneralHTML += '</select></div>';
 
@@ -98,13 +100,19 @@ const configurationRoute = (app) => {
         stratGeneralHTML += '<option value="short"' + (config.parametre_strategie_generaux.type === 'short' ? ' selected' : '') + '>short</option>';
         stratGeneralHTML += '<option value="both"' + (config.parametre_strategie_generaux.type === 'both' ? ' selected' : '') + '>both</option>';
         stratGeneralHTML += '</select></div>';
+        stratGeneralHTML += '<div>Investissement de base: <input id="totalInvestment" type="text" class="input_select" value="'+config.historique.totalInvestment+'" /> USD</div>';
     stratGeneralHTML += '</div>';
 
-    let historiqueHTML = '<div>';
-        historiqueHTML += '<div>Investissement de base: <input id="totalInvestment" type="text" class="input_select" value="'+config.historique.totalInvestment+'" /></div>';
-        historiqueHTML += '<div>Fichier Historique: <input id="soldeFile" type="text" class="input_select" value="'+config.historique.soldeFile+'" /></div>';
-    historiqueHTML += '</div>';    
     
+    let telegramHTML = '<div>';
+        telegramHTML += '<div>Telegram Activé: <input id="telegram_on" class="input_select" type="checkbox" value="'+config.retour_telegram.telegram_on+'" ' + (config.retour_telegram.telegram_on ? 'checked' : '') + ' /></div>';
+        telegramHTML += '<div>Notif Télégram pour tout: <input id="alwaysNotifTelegram" class="input_select" type="checkbox" value="'+config.retour_telegram.alwaysNotifTelegram+'" ' + (config.retour_telegram.notifTelegramOnChangeOnly ? 'checked' : '') + ' /></div>';
+        telegramHTML += '<div>Notif Télégram si changement: <input id="notifTelegramOnChangeOnly" class="input_select" type="checkbox" value="'+config.retour_telegram.notifTelegramOnChangeOnly+'" ' + (config.retour_telegram.notifTelegramOnChangeOnly ? 'checked' : '') + ' /></div>';
+        telegramHTML += '<div>Notif Télégram avec bilan de performance: <input id="notifBilanDePerformance" class="input_select" type="checkbox" value="'+config.retour_telegram.notifBilanDePerformance+'" ' + (config.retour_telegram.notifBilanDePerformance ? 'checked' : '') + ' /></div>';
+        telegramHTML += '<div>Notif Télégram avec bilan de l\'évolution: <input id="notifBilanEvolutionContinue" class="input_select" type="checkbox" value="'+config.retour_telegram.notifBilanEvolutionContinue+'" ' + (config.retour_telegram.notifBilanEvolutionContinue ? 'checked' : '') + ' /></div>';
+    telegramHTML += '</div>';
+
+
     res.send(`
         <!DOCTYPE html>
         <html>
@@ -115,9 +123,9 @@ const configurationRoute = (app) => {
         <body>
             <nav>
             <a href="/">Page principale</a>
-            <a href="/configuration">Configuration</a>
+            <a href="/configuration">Configuration Bot</a>
+            <a href="/configuration_interface">Configuration Interface</a>
             <a href="/place_trade">Trade Manuel</a>
-            <a href="/defi">DEFI</a>
             <a href="/deconnection" class="logout-link">Deconnection</a>
             </nav>
             <h1>Configuration du Bot de Trading</h1>
@@ -133,22 +141,23 @@ const configurationRoute = (app) => {
                         <h2>Configuration Général</h2>
                         ${generalHTML}
                     </div>
-                    <div class="div_input">
-                        <h2>Configuration Télégram</h2>
-                        ${telegramHTML}
-                    </div>
+                    
                     <div class="div_input">
                         <h2>Configuration Général pour les strats</h2>
                         ${stratGeneralHTML}
                     </div>
                     <div class="div_input">
-                        <h2>Configuration historique</h2>
-                        ${historiqueHTML}
+                        <div class="div_input">
+                            <h2>Configuration Télégram</h2>
+                            ${telegramHTML}
+                        </div>
+                        <div class="div_input">
+                            <h2>Action</h2>
+                            <button id="save-button">Save</button><br>
+                            <button id="start-button">Start Bot</button>
+                        </div>
                     </div>
-                    <div class="div_input">
-                    <button id="save-button">Save</button><br>
-                    <button id="start-button">Start Bot</button>
-                    </div>
+                    
                 </div>
             </section>
             <script src="/configuration.js"></script>

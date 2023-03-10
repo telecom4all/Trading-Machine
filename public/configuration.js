@@ -32,9 +32,6 @@ saveButton.addEventListener('click', () => {
     // parametre généraux
     let botname = document.querySelector('#botname').value;
     let botversion = document.querySelector('#botversion').value;
-    let delai_log = document.querySelector('#delai_log').value;
-    let delai_interface = document.querySelector('#delai_interface').value;
-    let delai_price = document.querySelector('#delai_price').value;
     
     let production = document.querySelector('#production').checked;
     let debug = document.querySelector('#debug').checked;
@@ -67,7 +64,7 @@ saveButton.addEventListener('click', () => {
     
     // historique
     let totalInvestment = document.querySelector('#totalInvestment').value;
-    let soldeFile = document.querySelector('#soldeFile').value;
+    
 
     var config_strats = [];
     var strats = document.getElementsByClassName("div_strat");
@@ -88,9 +85,6 @@ saveButton.addEventListener('click', () => {
         "parametres_generaux" : {
             "botname": botname,
             "botversion": botversion,
-            "delai_log": delai_log,
-            "delai_interface": delai_interface,
-            "delai_price": delai_price,
             "production": production,
             "debug": debug,
             "debug_detail": debug_detail,
@@ -121,8 +115,7 @@ saveButton.addEventListener('click', () => {
             "type": type
         },
         "historique": {
-            "totalInvestment": totalInvestment,
-            "soldeFile": soldeFile
+            "totalInvestment": totalInvestment
         }
         
     };
@@ -187,7 +180,6 @@ startButton.addEventListener('click', () => {
     
     // historique
     let totalInvestment = document.querySelector('#totalInvestment').value;
-    let soldeFile = document.querySelector('#soldeFile').value;
 
     var config_strats = [];
     var strats = document.getElementsByClassName("div_strat");
@@ -238,8 +230,7 @@ startButton.addEventListener('click', () => {
             "type": type
         },
         "historique": {
-            "totalInvestment": totalInvestment,
-            "soldeFile": soldeFile
+            "totalInvestment": totalInvestment
         }
         
     };

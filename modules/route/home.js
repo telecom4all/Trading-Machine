@@ -1,5 +1,6 @@
 const checkAuth = require('../auth');
-const config = require('../config');
+const fs = require('fs');
+const path = require('path');
 
 
 const homeRoute = (app) => {
@@ -9,6 +10,10 @@ const homeRoute = (app) => {
     res.set('Pragma', 'no-cache');
     
     
+    let configFile = path.join(__dirname, '../../jsons/configs/config_interface.json');
+    let configInterface = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
+
+
     res.send(`
         <!DOCTYPE html>
         <html>
@@ -22,6 +27,7 @@ const homeRoute = (app) => {
             <nav>
             <a href="/">Page principale</a>
             <a href="/configuration">Configuration Bot</a>
+            <a href="/configuration_interface">Configuration Interface</a>
             <a href="/place_trade">Trade Manuel</a>
             <a href="/deconnection" class="logout-link">Deconnection</a>
             </nav>
@@ -45,11 +51,11 @@ const homeRoute = (app) => {
 
                 setInterval(function() {
                     get_log_bots();
-                }, ${config.parametres_generaux.delai_log*1000});
+                }, ${configInterface.parametres_generaux.delai_log*1000});
 
                 setInterval(function() {
                     update_list_bot();   
-                }, ${config.parametres_generaux.delai_interface*1000});
+                }, ${configInterface.parametres_generaux.delai_interface*1000});
                 
             </script>
         </body>

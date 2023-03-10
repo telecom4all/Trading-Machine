@@ -5,6 +5,7 @@ const configurationRoute = require('./modules/route/configuration');
 const homeRoute = require('./modules/route/home');
 const placeTradeRoute = require('./modules/route/place_trade');
 const loginRoute = require('./modules/route/login');
+const configurationInterface = require('./modules/route/configuration_interface');
 const postRoutes = require('./modules/route/post');
 
 const app = require('./modules/middleware');
@@ -12,6 +13,7 @@ configurationRoute(app);
 homeRoute(app);
 placeTradeRoute(app);
 loginRoute(app);
+configurationInterface(app);
 postRoutes(app);
 
 
