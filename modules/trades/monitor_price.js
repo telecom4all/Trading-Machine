@@ -194,13 +194,18 @@ async function delete_pid(pid){
   });
 }
 
-async function monitor_price(timeframe, price, position, amount, tp_percentage, tp_amount, sl_percentage, tp_switch, sl_switch, pair, exchange) {
+async function monitor_price(timeframe, price, position, amount, tp_percentage, tp_amount, sl_percentage, tp_switch, sl_switch, pair, exchangeReq) {
     const pid = process.pid;
     etiquette_bot = etiquette_bot + " PID: " + pid + " ";
     let debug = config.parametres_generaux.debug;
     let exchangeUtils;
     let exchangeSelected;
-    if(exchange == "BITGET"){
+
+    const exchangeInfo = configSecret.exchanges.find(exchange => exchange.name === exchangeReq);
+    config.exchangeInfo = exchangeInfo;
+
+
+    if(exchangeInfo.exchange  == "BITGET"){
         exchangeUtils = require('../bot/exchanges/bitget');
         try {
             exchangeSelected = exchangeUtils.initBitget(config, "");   
@@ -210,7 +215,7 @@ async function monitor_price(timeframe, price, position, amount, tp_percentage, 
             return;
         }
     }
-    if(exchange == "BINANCE"){
+    if(exchangeInfo.exchange  == "BINANCE"){
         exchangeUtils = require('../bot/exchanges/binance');
         try {
             exchangeSelected = exchangeUtils.initBinance(config, "");   

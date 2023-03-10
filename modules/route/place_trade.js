@@ -1,5 +1,6 @@
 const checkAuth = require('../auth');
 const config = require('../config');
+const configSecret = require('../config_secret');
 
 const placeTradeRoute = (app) => {
   app.get('/place_trade', checkAuth, (req, res) => {
@@ -7,7 +8,7 @@ const placeTradeRoute = (app) => {
     res.set('Pragma', 'no-cache');
     
     let listExchanges;
-    for (const exchange of config.exchanges) {
+    for (const exchange of configSecret.exchanges) {
         listExchanges += '<option value="' + exchange.name + '" ' + (exchange.name === config.parametres_generaux.exchange_active ? 'selected' : '') + '>' + exchange.name + '</option>';
     }
  
@@ -23,6 +24,7 @@ const placeTradeRoute = (app) => {
         <a href="/">Page principale</a>
         <a href="/configuration">Configuration</a>
         <a href="/place_trade">Trade Manuel</a>
+        <a href="/defi">DEFI</a>
         <a href="/deconnection" class="logout-link">Deconnection</a>
         </nav>
         <h1>Trade Manuel</h1>

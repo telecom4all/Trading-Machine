@@ -43,7 +43,7 @@ function get_price(){
         pairSelect = pairSelect.toUpperCase();
         const data = {
             pair: pairSelect,
-            exchange: exchange.toLowerCase()
+            exchangeReq: exchange
         };
         fetch("/get_price", {
             method: "POST",

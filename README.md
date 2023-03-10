@@ -124,6 +124,8 @@ pensez a vider de temps les fichiers dans le repertoire logs/conditions en ne la
 
 on peu lancer autant de bot qu'on veut sur des timeframe différente avec des parametre différents
 
+ajout de pouvoir seletionner différente sous-compte sur les exchanges a configuré dans le fichier config_secret.json
+
 #### Page principal 
 la liste des bot que l'on a lancé que l'on peu supprimé 
 

@@ -12,7 +12,7 @@ const place_trade = require('../bot/bot_utilities/place_trade')
 const take_profit = require('../bot/bot_utilities/take_profit');
 const stop_loss = require('../bot/bot_utilities/stop_loss');
 const path = require('path');
-
+const configSecret = require('../config_secret')
 const parentDir = path.join(__dirname, '../../');
 
 function replaceSpecialCharacters(str) {
@@ -110,8 +110,12 @@ async function bot_start() {
     logger.info(etiquette_bot + "Exchange : " + exchangeSelected);
     logger.info(etiquette_bot + "Stratégies : " + stratSelected);
 
+
     // Choix de l'exchange 
-    if(exchangeSelected === "BITGET"){
+    const exchangeInfo = configSecret.exchanges.find(exchange => exchange.name === exchangeSelected);
+    data.exchangeInfo = exchangeInfo;
+    
+    if(exchangeInfo.exchange === "BITGET"){
         exchangeUtils = require('../bot/exchanges/bitget');
         try {
             exchange = exchangeUtils.initBitget(data, true);
@@ -123,7 +127,7 @@ async function bot_start() {
         return; 
         }
     }
-    if(exchangeSelected === "BINANCE"){
+    if(exchangeInfo.exchange === "BINANCE"){
         exchangeUtils = require('../bot/exchanges/binance');
         try {
             exchange = exchangeUtils.initBinance(data, true);

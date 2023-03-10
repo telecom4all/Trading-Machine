@@ -10,8 +10,7 @@ const process_bot = require('../bot/bot_utilities/process_bot');
 const mysqlUtil = require('../mysql');
 const { off } = require('process');
 const config = require('../config');
-const fs = require('fs');
-
+const configSecret = require('../config_secret');
 const postRoutes = (app) => {
     
   
@@ -96,45 +95,28 @@ const postRoutes = (app) => {
       
     });
 
-   const colorTable = {
-  '30': 'black',
-  '31': 'red',
-  '32': 'green',
-  '33': 'yellow',
-  '34': 'blue',
-  '35': 'magenta',
-  '36': 'cyan',
-  '37': 'white'
-};
 
-app.post('/get_log', async (req, res) => {
-  let logFile = path.join(__dirname, '../../logs/pm2.log');
-  let logs = fs.readFileSync(logFile, 'utf8');
-  let logsArray = logs.split('\n');
-  let last200Lines = logsArray.slice(-200).join('\n');
+    app.post('/get_log', async (req, res) => {
+      let logFile = path.join(__dirname, '../../logs/pm2.log');
+       const logs = await utilities.readFile(logFile);
+       const logsStr = logs.toString('utf8');
+       if(logsStr == "false"){
+         res.send(false);
+       }
+       else{
+         let str = logsStr.replace(/\x1B\[31merror\x1B\[39m/g, '<span style="color: red;">error</span>');
+         let str2 = str.replace(/\x1B\[32minfo\x1B\[39m/g, '<span style="color: green;">info</span>');
+         let str3 = str2.replace(/\x1B\[35m(.*?)\x1B\[0m/g, (match, label) => `<span style="color: magenta;">${label}</span>`);
+         let str4 = str3.replace(/\x1B\[\d+m(.*?): \x1B\[0m/g, (match, label) => `<span style="color: blue;">${label}</span>`);
+         
+         let str5 = str4.replace(/\x1B\[38;2;255;165;0mTrade Manuel :\x1B\[0m/g, '<span style="color: rgb(255, 165, 0);"> Trade Manuel :</span>');
+         let str6 = str5.replace(/\n/g, '<br>');
 
-  if(last200Lines == "false"){
-    res.send(false);
-  }
-  else{
-    
-    let str = last200Lines.replace(/\x1B\[31merror\x1B\[39m/g, '<span style="color: red;">error</span>');
-    let str2 = str.replace(/\x1B\[32minfo\x1B\[39m/g, '<span style="color: green;">info</span>');
-    let str3 = str2.replace(/\x1B\[(\d+)m(.*?): \x1B\[0m/g, (match, code, label) => {
-      const color = colorTable[code];
-      return `<span style="color: ${color};">${label}</span>`;
-    });
-    
-    let str4 = str3.replace(/\x1B\[35m([\s\S]*?)\x1B\[0m/g, '<span style="color: magenta;">$1</span>');
+         //console.log(str6)
+         res.send(str6);
+       }
+    });;
 
-
-    let str5 = str4.replace(/\x1B\[38;2;255;165;0mTrade Manuel :\x1B\[0m/g, '<span style="color: rgb(255, 165, 0);"> Trade Manuel :</span>');
-    let str6 = str5.replace(/\n/g, '<br>');
-
-    //console.log(str6)
-    res.send(str6);
-  }
-});
 
     /*  Trading Bot */
     app.post('/start_bot', (req, res) => {
@@ -219,15 +201,20 @@ app.post('/get_log', async (req, res) => {
     /* Place Trade */
     app.post('/get_price', async (req, res) => {
      try {
-        const { pair, exchange } = req.body
+        const { pair, exchangeReq } = req.body
         let exchangeUtils;
         let exchangeSelected;
-        if(exchange == "bitget"){
+       
+
+        const exchangeInfo = configSecret.exchanges.find(exchange => exchange.name === exchangeReq);
+        config.exchangeInfo = exchangeInfo;
+
+        if(exchangeInfo.exchange == "BITGET"){
           exchangeUtils = require('../bot/exchanges/bitget');
           exchangeSelected = exchangeUtils.initBitget(config, "");
           
         }
-        if(exchange == "binance"){
+        if(exchangeInfo.exchange == "BINANCE"){
           exchangeUtils = require('../bot/exchanges/binance');
           exchangeSelected = exchangeUtils.initBinance(config, "");
           

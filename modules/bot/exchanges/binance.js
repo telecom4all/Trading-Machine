@@ -31,8 +31,8 @@ function initBinance(config, start) {
         }
         
         return new ccxt.binance({
-            apiKey: configSecret.binance.apiKey,
-            secret: configSecret.binance.secret,
+            apiKey: config.exchangeInfo.apiKey,
+            secret: config.exchangeInfo.secret,
             options: {
                 defaultType: 'future'
             }

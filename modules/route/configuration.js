@@ -1,5 +1,6 @@
 const checkAuth = require('../auth');
 const config = require('../config');
+const configSecret = require('../config_secret');
 
 const configurationRoute = (app) => {
   app.get('/configuration', checkAuth, (req, res) => {
@@ -16,7 +17,8 @@ const configurationRoute = (app) => {
             }
         strategiesHTML += '</div>';
     }
-
+ 
+    
     let generalHTML = '<div>';
         generalHTML += '<div>Nom du Bot: <input id="botname" type="text" class="input_select" value="'+config.parametres_generaux.botname+'" /></div>';
         generalHTML += '<div>Version Bot: <input id="botversion" type="text" class="input_select" value="'+config.parametres_generaux.botversion+'" /></div>';
@@ -32,7 +34,9 @@ const configurationRoute = (app) => {
         }
         generalHTML += '</select></div>';
         generalHTML += '<div>Exchange Active: <select id="exchange_active" class="input_select">';
-        for (const exchange of config.exchanges) {
+
+        for (const exchange of configSecret.exchanges) {
+            
             generalHTML += '<option value="' + exchange.name + '" ' + (exchange.name === config.parametres_generaux.exchange_active ? 'selected' : '') + '>' + exchange.name + '</option>';
         }
         generalHTML += '</select></div>';
@@ -113,6 +117,7 @@ const configurationRoute = (app) => {
             <a href="/">Page principale</a>
             <a href="/configuration">Configuration</a>
             <a href="/place_trade">Trade Manuel</a>
+            <a href="/defi">DEFI</a>
             <a href="/deconnection" class="logout-link">Deconnection</a>
             </nav>
             <h1>Configuration du Bot de Trading</h1>

@@ -25,15 +25,16 @@ const sleep = (ms) => {
 function initBitget(config, start) {
     const botName = config.parametres_generaux.botname;
     let etiquette_bot = "\x1b[34m"+botName+": \x1b[0m ";
+    
     try {
         if(start && start == true){
            logger.info(etiquette_bot + "CCXT Version : " + ccxt.version); 
         }
         
         let exchange = new ccxt.bitget({
-            apiKey: configSecret.bitget.apiKey,
-            secret: configSecret.bitget.secret,
-            password: configSecret.bitget.password,
+            apiKey: config.exchangeInfo.apiKey,
+            secret: config.exchangeInfo.secret,
+            password: config.exchangeInfo.password,
             options: {
                 defaultType: 'swap'
             }
