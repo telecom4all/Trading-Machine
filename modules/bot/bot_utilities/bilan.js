@@ -524,15 +524,15 @@ async function getResume(config, data, etiquette_bot) {
     message += `SOLDE TOTAL => ${data.lastExecBot}$\n`;
     
 
-    message += `\n*************************************************************\n`;
+    message += `\n*****************************************************\n`;
     message += `N'hésitez pas à me soutenir pour le travail du bot :\n`;
     message += `• Adresse BTC : 1CetuWt9PuppZ338MzBzQZSvtMW3NnpjMr\n`;
     message += `• Adresse ETH (Réseau ERC20) : 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236\n`;
     message += `• Adresse SOL : AsLvBCG1fpmpaueTYBmU5JN5QKVkt9a1dLR44BAGUZbV\n`;
     message += `• Adresse MATIC : 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236\n`;
-    message += `• Adresse BNB : 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236\n`;
+    message += `• Adresse BNB : 0x18f71abd7c2ee05eab7292d8f34177e7a1b62236\n\n`;
 
-    message += `\n*************************************************************\n`;
+   
 
  //   message = message.replace('-USDT', '');
  //   message = message.replace(', ', ' ');
