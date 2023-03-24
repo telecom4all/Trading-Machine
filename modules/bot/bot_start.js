@@ -202,7 +202,10 @@ async function bot_start() {
     }
     let isBilanInit = await bilan.getBilan(data, roundedUsdBalanceInit, fichier_historique, etiquette_bot);
 
-    telegram(messageTelegram);
+    if(telegram_on == true){
+        telegram(messageTelegram);
+    }
+    
     
     
     
